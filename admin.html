@@ -309,23 +309,10 @@ const API = '/api';
 let token = localStorage.getItem('fak_token') || '';
 let username = localStorage.getItem('fak_user') || '';
 
-// Check if already logged in
-if (token) {
-    // Verify token is still valid
-    fetch(API + '/admin/articles', {
-        headers: {'Authorization': 'Bearer ' + token}
-    }).then(r => {
-        if (r.ok) showAdmin();
-        else {
-            localStorage.removeItem('fak_token');
-            localStorage.removeItem('fak_user');
-            token = '';
-        }
-    }).catch(() => {
-        localStorage.removeItem('fak_token');
-        token = '';
-    });
-}
+// Always show login first - no auto-login
+localStorage.removeItem('fak_token');
+localStorage.removeItem('fak_user');
+token = '';
 
 async function doLogin() {
     const user = document.getElementById('login-user').value;
