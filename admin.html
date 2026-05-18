@@ -84,6 +84,16 @@
         .success-msg { background:#e8f8f0; color:var(--gruen); padding:12px 16px; font-size:0.8rem; margin-bottom:16px; border-left:3px solid var(--gruen); }
 
         .hidden { display:none; }
+        .upload-area { border:2px dashed rgba(42,184,196,0.4); padding:24px; text-align:center; cursor:pointer; transition:all 0.3s; margin-bottom:16px; }
+        .upload-area:hover { border-color:var(--tuerkis); background:rgba(42,184,196,0.05); }
+        .upload-area input { display:none; }
+        .upload-preview { margin-top:12px; }
+        .upload-preview img { max-width:200px; max-height:150px; border:1px solid #ddd; }
+        .upload-preview video { max-width:300px; max-height:200px; }
+        .upload-status { font-size:0.75rem; margin-top:8px; color:var(--tuerkis); font-weight:600; }
+        .progress-bar { height:4px; background:#eee; margin-top:8px; display:none; }
+        .progress-fill { height:100%; background:var(--tuerkis); width:0%; transition:width 0.3s; }
+
         .loading-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:999; display:flex; align-items:center; justify-content:center; } .hidden { display:none !important; }
         .loading-spinner { width:40px; height:40px; border:3px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:spin 0.8s linear infinite; }
         @keyframes spin { to { transform:rotate(360deg); } }
@@ -293,6 +303,37 @@
                         </div>
                     </div>
 
+
+                    <div class="form-grid" style="margin-top:20px;">
+                        <div>
+                            <div class="form-group">
+                                <label>📷 Foto hochladen</label>
+                                <div class="upload-area" onclick="document.getElementById('foto-input').click()">
+                                    <input type="file" id="foto-input" accept="image/*" onchange="uploadFile(this,'foto')">
+                                    <div>📷 Foto auswählen</div>
+                                    <div style="font-size:0.7rem;color:#aaa;margin-top:4px;">JPG, PNG, WebP (max 10MB)</div>
+                                    <div class="upload-preview" id="foto-preview"></div>
+                                    <div class="progress-bar" id="foto-progress"><div class="progress-fill" id="foto-fill"></div></div>
+                                    <div class="upload-status" id="foto-status"></div>
+                                </div>
+                                <input type="hidden" id="new-image-url" value="">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label>🎬 Video hochladen</label>
+                                <div class="upload-area" onclick="document.getElementById('video-input').click()">
+                                    <input type="file" id="video-input" accept="video/*" onchange="uploadFile(this,'video')">
+                                    <div>🎬 Video auswählen</div>
+                                    <div style="font-size:0.7rem;color:#aaa;margin-top:4px;">MP4, MOV (max 500MB)</div>
+                                    <div class="upload-preview" id="video-preview"></div>
+                                    <div class="progress-bar" id="video-progress"><div class="progress-fill" id="video-fill"></div></div>
+                                    <div class="upload-status" id="video-status"></div>
+                                </div>
+                                <input type="hidden" id="new-video-url" value="">
+                            </div>
+                        </div>
+                    </div>
                     <div style="display:flex;gap:12px;margin-top:20px;">
                         <button class="btn btn-gold" onclick="saveArticle()">💾 Speichern</button>
                         <button class="btn" style="background:#eee;color:#333;" onclick="resetForm()">Abbrechen</button>
@@ -416,7 +457,9 @@ async function quickCreate() {
                 title_de: title, content_de: content,
                 category: document.getElementById('q-category').value,
                 author: document.getElementById('q-author').value,
-                published: document.getElementById('q-published').value === 'true'
+                published: document.getElementById('q-published').value === 'true',
+                image_url: '',
+                video_url: ''
             })
         });
         if (!r.ok) throw new Error();
@@ -490,6 +533,57 @@ async function deleteArtikel(id) {
         loadStats();
     } catch(e) {}
     finally { showLoading(false); }
+}
+
+
+async function uploadFile(input, type) {
+    const file = input.files[0];
+    if (!file) return;
+    
+    const progressBar = document.getElementById(type === 'foto' ? 'foto-progress' : 'video-progress');
+    const progressFill = document.getElementById(type === 'foto' ? 'foto-fill' : 'video-fill');
+    const status = document.getElementById(type === 'foto' ? 'foto-status' : 'video-status');
+    const preview = document.getElementById(type === 'foto' ? 'foto-preview' : 'video-preview');
+    
+    progressBar.style.display = 'block';
+    status.textContent = 'Wird hochgeladen...';
+    
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    try {
+        const xhr = new XMLHttpRequest();
+        xhr.upload.onprogress = (e) => {
+            if (e.lengthComputable) {
+                const pct = Math.round((e.loaded / e.total) * 100);
+                progressFill.style.width = pct + '%';
+            }
+        };
+        
+        xhr.onload = () => {
+            const data = JSON.parse(xhr.responseText);
+            if (xhr.status === 200) {
+                status.textContent = '✅ Erfolgreich hochgeladen!';
+                if (type === 'foto') {
+                    document.getElementById('new-image-url').value = data.url;
+                    preview.innerHTML = '<img src="' + data.url + '" style="max-width:200px;max-height:150px;border:1px solid #ddd;margin-top:8px;">';
+                } else {
+                    document.getElementById('new-video-url').value = data.url;
+                    preview.innerHTML = '<video src="' + data.url + '" controls style="max-width:300px;max-height:180px;margin-top:8px;"></video>';
+                }
+            } else {
+                status.textContent = '❌ Fehler: ' + (data.detail || 'Upload fehlgeschlagen');
+            }
+        };
+        
+        xhr.onerror = () => { status.textContent = '❌ Verbindungsfehler'; };
+        xhr.open('POST', '/api/admin/upload');
+        xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+        xhr.send(formData);
+        
+    } catch(e) {
+        status.textContent = '❌ Fehler beim Upload';
+    }
 }
 
 function resetForm() {
