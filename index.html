@@ -9,7 +9,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root { --tuerkis: #3D5AFE; --gold: #F5B800; --dunkel: #0d1f3c; --hell: #f5f7ff; }
         html { scroll-behavior: smooth; }
-        body { font-family: "Montserrat", sans-serif; background: var(--dunkel); color: #fff; overflow-x: hidden; }
+        body { font-family: "Lato", sans-serif; background: var(--dunkel); color: #fff; overflow-x: hidden; }
 
         /* NAV */
         nav { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 0 40px; height: 70px; display: flex; align-items: center; justify-content: space-between; background: rgba(13,31,60,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(42,184,196,0.3); transition: all 0.3s; }
@@ -28,7 +28,7 @@
 
         /* LANG SWITCHER */
         .lang-switcher { display: flex; align-items: center; gap: 4px; margin-left: 12px; background: rgba(42,184,196,0.08); border: 1px solid rgba(42,184,196,0.25); border-radius: 6px; padding: 4px 6px; }
-        .lang-btn { font-size: 0.62rem; font-weight: 700; letter-spacing: 1px; padding: 4px 8px; border-radius: 4px; cursor: pointer; border: none; background: transparent; color: rgba(255,255,255,0.5); transition: all 0.2s; font-family: Montserrat, sans-serif; }
+        .lang-btn { font-size: 0.62rem; font-weight: 700; letter-spacing: 1px; padding: 4px 8px; border-radius: 4px; cursor: pointer; border: none; background: transparent; color: rgba(255,255,255,0.5); transition: all 0.2s; font-family: "Lato", sans-serif; }
         .lang-btn.active { background: var(--gold); color: var(--dunkel); }
         .lang-btn:hover:not(.active) { color: var(--tuerkis); }
 
@@ -151,8 +151,13 @@
         }
 
 
-        h1, h2, h3, .section-title, .hist-title {
+        h1, h2, h3, h4, h5,
+        .section-title, .hist-title, .proj-title, .wert h3,
+        .hero h1, .hero h2, .nav-logo-text {
             font-family: 'Playfair Display', serif !important;
+        }
+        body, p, a, button, input, textarea, select, span, div {
+            font-family: "Lato", sans-serif;
         }
     </style>
 </head>
