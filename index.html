@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frauen-Aufklärungsbewegung Kurdistans e.V.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --tuerkis: #2ab8c4; --gold: #F5B800; --dunkel: #0d1f3c; --hell: #f5f7ff; }
+        :root { --tuerkis: #3D5AFE; --gold: #F5B800; --dunkel: #0d1f3c; --hell: #f5f7ff; }
         html { scroll-behavior: smooth; }
         body { font-family: "Montserrat", sans-serif; background: var(--dunkel); color: #fff; overflow-x: hidden; }
 
@@ -62,7 +62,7 @@
         .hero-desc { font-size: 0.77rem; max-width: 420px; line-height: 1.9; color: rgba(255,255,255,0.82); font-weight: 300; margin: 0 auto 12px; }
         .hero-datum { font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 28px; color: var(--gold); }
         .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-        .btn { padding: 13px 32px; font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; font-family: "Montserrat",sans-serif; transition: all 0.3s; display: inline-block; }
+        .btn { padding: 13px 32px; font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; font-family:"Lato",sans-serif; transition: all 0.3s; display: inline-block; }
         .btn-primary { background: var(--gold); color: var(--dunkel); border: 2px solid var(--gold); }
         .btn-primary:hover { background: transparent; color: var(--gold); transform: translateY(-2px); }
         .btn-outline { background: transparent; color: var(--tuerkis); border: 2px solid var(--tuerkis); }
@@ -106,9 +106,9 @@
         .trans-widget { padding: 70px 60px; background: #071230; border-top: 1px solid rgba(30,64,224,0.4); }
         .trans-inner { max-width: 680px; margin: 0 auto; text-align: center; }
         .trans-dir-btns { display: flex; gap: 8px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
-        .trans-dir-btn { padding: 9px 20px; font-family: Montserrat,sans-serif; font-weight: 600; font-size: 0.75rem; letter-spacing: 1px; cursor: pointer; border: 2px solid var(--tuerkis); transition: all 0.3s; background: transparent; color: var(--tuerkis); }
+        .trans-dir-btn { padding: 9px 20px; font-family:"Lato",sans-serif; font-weight: 600; font-size: 0.75rem; letter-spacing: 1px; cursor: pointer; border: 2px solid var(--tuerkis); transition: all 0.3s; background: transparent; color: var(--tuerkis); }
         .trans-dir-btn.active { background: var(--gold); color: var(--dunkel); border-color: var(--gold); }
-        textarea#input-text { width: 100%; height: 110px; background: #0a1628; color: #fff; border: 1px solid rgba(30,64,224,0.5); padding: 14px; font-family: Montserrat,sans-serif; font-size: 0.88rem; resize: none; margin-bottom: 12px; }
+        textarea#input-text { width: 100%; height: 110px; background: #0a1628; color: #fff; border: 1px solid rgba(30,64,224,0.5); padding: 14px; font-family:"Lato",sans-serif; font-size: 0.88rem; resize: none; margin-bottom: 12px; }
         .trans-result { display: none; background: #0a1628; border: 1px solid var(--tuerkis); padding: 18px; text-align: left; margin-top: 12px; border-radius: 2px; }
 
         footer { padding: 28px 60px; border-top: 1px solid rgba(42,184,196,0.12); display: flex; justify-content: space-between; align-items: center; font-size: 0.68rem; letter-spacing: 1px; color: rgba(255,255,255,0.18); }
@@ -150,6 +150,10 @@
             .hero h1 { font-size: 1.4rem; }
         }
 
+
+        h1, h2, h3, .section-title, .hist-title {
+            font-family: 'Playfair Display', serif !important;
+        }
     </style>
 </head>
 <body class="dunkel">
