@@ -502,7 +502,9 @@ async function saveArticle() {
         content_en: document.getElementById('content-en').value,
         category: document.getElementById('new-category').value,
         author: document.getElementById('new-author').value,
-        published: document.getElementById('new-published').value === 'true'
+        published: document.getElementById('new-published').value === 'true',
+        image_url: document.getElementById('new-image-url').value || '',
+        video_url: document.getElementById('new-video-url') ? document.getElementById('new-video-url').value : ''
     };
     if (!body.title_de || !body.content_de) { alert('Bitte Titel und Text auf Deutsch eingeben!'); return; }
     showLoading(true);
