@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Magazin – Frauen-Aufklärungsbewegung Kurdistans e.V.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
-        :root { --tuerkis:#3D5AFE; --gold:#F5B800; --dunkel:#0d1f3c; --blau:#1a2f6e; }
+        :root { --tuerkis:#2ab8c4; --gold:#F5B800; --dunkel:#0d1f3c; --blau:#1a2f6e; }
         html { scroll-behavior:smooth; }
-        body { font-family:'Calibri', 'Candara', 'Segoe UI', sans-serif; background:var(--dunkel); color:#fff; overflow-x:hidden; }
+        body { font-family:"Montserrat",sans-serif; background:var(--dunkel); color:#fff; overflow-x:hidden; }
 
         /* NAV */
         nav {
@@ -33,7 +34,7 @@
         .submenu a { display:block; color:rgba(255,255,255,0.65); text-decoration:none; font-size:0.7rem; padding:11px 18px; transition:all 0.2s; border-bottom:1px solid rgba(255,255,255,0.05); letter-spacing:1px; }
         .submenu a:hover { color:var(--gold); padding-left:26px; }
         .lang-switcher { display:flex; gap:3px; margin-left:12px; background:rgba(42,184,196,0.08); border:1px solid rgba(42,184,196,0.2); border-radius:6px; padding:3px; }
-        .lang-btn { background:none; border:none; color:rgba(255,255,255,0.4); padding:4px 9px; border-radius:4px; cursor:pointer; font-size:0.62rem; font-family:'Calibri', 'Candara', 'Segoe UI', sans-serif; font-weight:700; letter-spacing:1px; transition:all 0.2s; }
+        .lang-btn { background:none; border:none; color:rgba(255,255,255,0.4); padding:4px 9px; border-radius:4px; cursor:pointer; font-size:0.62rem; font-family:"Montserrat",sans-serif; font-weight:700; letter-spacing:1px; transition:all 0.2s; }
         .lang-btn.active { background:var(--gold); color:var(--dunkel); }
         .lang-btn:hover:not(.active) { color:var(--tuerkis); }
 
@@ -106,7 +107,7 @@
         /* ARTIKEL SECTION */
         .artikel-section { padding:90px 60px; background:var(--dunkel); }
         .filter-bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:40px; }
-        .filter-btn { background:none; border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.6); padding:7px 18px; cursor:pointer; font-family:'Calibri', 'Candara', 'Segoe UI', sans-serif; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase; transition:all 0.3s; font-weight:500; }
+        .filter-btn { background:none; border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.6); padding:7px 18px; cursor:pointer; font-family:"Montserrat",sans-serif; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase; transition:all 0.3s; font-weight:500; }
         .filter-btn:hover, .filter-btn.active { background:var(--gold); border-color:var(--gold); color:var(--dunkel); font-weight:700; }
         .artikel-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:22px; }
         .artikel-card { background:rgba(255,255,255,0.03); border:1px solid rgba(42,184,196,0.12); cursor:pointer; transition:all 0.3s; opacity:0; transform:translateY(20px); animation:cardIn 0.5s forwards; }
@@ -156,11 +157,45 @@
             .hero { min-height:70vh; }
         }
 
-        h1, h2, h3, h4, .section-title, .kat-card h3, .section-title {
-            font-family: 'Calibri', 'Candara', 'Segoe UI', sans-serif;
-        }
-        body, p, a, button, input, span, div {
-            font-family: 'Calibri', 'Candara', 'Segoe UI', sans-serif;
+        /* TIMELINE */
+        .timeline-section { padding: 80px 60px; background: #0a1628; }
+        .timeline-tabs { display: flex; gap: 0; margin-bottom: 50px; border-bottom: 2px solid rgba(61,90,254,0.3); }
+        .timeline-tab { padding: 14px 32px; cursor: pointer; font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); transition: all 0.3s; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+        .timeline-tab.active { color: #F5B800; border-bottom-color: #F5B800; }
+        .timeline-tab:hover { color: #fff; }
+        .timeline-content { display: none; }
+        .timeline-content.active { display: block; }
+        .timeline-items { position: relative; padding-left: 40px; }
+        .timeline-items::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #3D5AFE, #F5B800); }
+        .timeline-item { display: flex; gap: 30px; margin-bottom: 50px; position: relative; animation: fadeUp 0.6s ease forwards; opacity: 0; }
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+        .timeline-item:nth-child(6) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(7) { animation-delay: 0.7s; }
+        .timeline-item:nth-child(8) { animation-delay: 0.8s; }
+        .timeline-item:nth-child(9) { animation-delay: 0.9s; }
+        .timeline-item:nth-child(10) { animation-delay: 1.0s; }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } from { opacity: 0; transform: translateY(20px); } }
+        .timeline-dot { position: absolute; left: -49px; top: 10px; width: 18px; height: 18px; border-radius: 50%; background: #3D5AFE; border: 3px solid #0a1628; box-shadow: 0 0 0 2px #3D5AFE; flex-shrink: 0; }
+        .timeline-portrait { width: 120px; height: 120px; object-fit: cover; filter: grayscale(100%) contrast(1.1); border: 3px solid rgba(61,90,254,0.4); flex-shrink: 0; transition: all 0.4s; }
+        .timeline-portrait:hover { filter: grayscale(0%); border-color: #F5B800; }
+        .timeline-portrait.color { filter: none; }
+        .timeline-portrait.film { filter: sepia(30%) contrast(1.1); }
+        .timeline-info { flex: 1; }
+        .timeline-year { font-size: 0.7rem; letter-spacing: 3px; color: #3D5AFE; font-weight: 700; margin-bottom: 6px; text-transform: uppercase; }
+        .timeline-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; color: #fff; }
+        .timeline-name span { color: #F5B800; }
+        .timeline-desc { font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.8; }
+        .timeline-tag { display: inline-block; font-size: 0.6rem; padding: 3px 10px; border: 1px solid rgba(61,90,254,0.4); color: #3D5AFE; letter-spacing: 2px; text-transform: uppercase; margin-top: 10px; }
+        @media (max-width: 768px) {
+            .timeline-section { padding: 50px 16px; }
+            .timeline-item { flex-direction: column; gap: 16px; }
+            .timeline-portrait { width: 80px; height: 80px; }
+            .timeline-tabs { flex-wrap: wrap; }
+            .timeline-tab { padding: 10px 16px; font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -210,10 +245,10 @@
     <a href="/" style="color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.72rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:12px 0;display:block;border-bottom:1px solid rgba(255,255,255,0.05);">Projekte</a>
     <a href="#" style="color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.72rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:12px 0;display:block;">Kontakt</a>
     <div style="display:flex;gap:6px;margin-top:16px;">
-        <button onclick="setLang('de',this)" style="background:#F5B800;color:#0d1f3c;border:none;padding:6px 12px;font-weight:700;font-size:0.7rem;cursor:pointer;font-family:'Calibri', 'Candara', 'Segoe UI', sans-serif;">DE</button>
-        <button onclick="setLang('kmj',this)" style="background:rgba(255,255,255,0.1);color:#fff;border:none;padding:6px 12px;font-weight:700;font-size:0.7rem;cursor:pointer;font-family:'Calibri', 'Candara', 'Segoe UI', sans-serif;">KMJ</button>
-        <button onclick="setLang('sor',this)" style="background:rgba(255,255,255,0.1);color:#fff;border:none;padding:6px 12px;font-weight:700;font-size:0.7rem;cursor:pointer;font-family:'Calibri', 'Candara', 'Segoe UI', sans-serif;">SOR</button>
-        <button onclick="setLang('en',this)" style="background:rgba(255,255,255,0.1);color:#fff;border:none;padding:6px 12px;font-weight:700;font-size:0.7rem;cursor:pointer;font-family:'Calibri', 'Candara', 'Segoe UI', sans-serif;">EN</button>
+        <button onclick="setLang('de',this)" style="background:#F5B800;color:#0d1f3c;border:none;padding:6px 12px;font-weight:700;font-size:0.7rem;cursor:pointer;font-family:Montserrat,sans-serif;">DE</button>
+        <button onclick="setLang('kmj',this)" style="background:rgba(255,255,255,0.1);color:#fff;border:none;padding:6px 12px;font-weight:700;font-size:0.7rem;cursor:pointer;font-family:Montserrat,sans-serif;">KMJ</button>
+        <button onclick="setLang('sor',this)" style="background:rgba(255,255,255,0.1);color:#fff;border:none;padding:6px 12px;font-weight:700;font-size:0.7rem;cursor:pointer;font-family:Montserrat,sans-serif;">SOR</button>
+        <button onclick="setLang('en',this)" style="background:rgba(255,255,255,0.1);color:#fff;border:none;padding:6px 12px;font-weight:700;font-size:0.7rem;cursor:pointer;font-family:Montserrat,sans-serif;">EN</button>
     </div>
 </div>
 
@@ -261,6 +296,242 @@
             <a href="#artikel" class="kat-btn p" id="k3-btn">Filme entdecken →</a>
         </div>
     </div>
+</section>
+
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+    <div class="kategorien-title">
+        <div class="section-label" style="text-align:center;">Dîrok · Geschichte</div>
+        <h2 class="section-title" style="text-align:center;">Visuelle Zeitreise</h2>
+        <div class="trennlinie" style="margin:16px auto;"></div>
+    </div>
+
+    <div class="timeline-tabs">
+        <div class="timeline-tab active" onclick="showTimeline('foto', this)">📷 Fotografie</div>
+        <div class="timeline-tab" onclick="showTimeline('film', this)">🎬 Film</div>
+        <div class="timeline-tab" onclick="showTimeline('phil', this)">📚 Filosofie</div>
+    </div>
+
+    <!-- FOTOGRAFIE TIMELINE -->
+    <div class="timeline-content active" id="tl-foto">
+        <div class="timeline-items">
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <img class="timeline-portrait" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Joseph_Nicéphore_Niépce.jpg/440px-Joseph_Nicéphore_Niépce.jpg" alt="Niépce" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year">1826</div>
+                    <div class="timeline-name">Joseph Nicéphore <span>Niépce</span></div>
+                    <div class="timeline-desc">Schuf die erste dauerhaft erhaltene Fotografie der Welt — "Blick vom Fenster in Le Gras". Eine 8-stündige Belichtungszeit, die die Geschichte für immer veränderte.</div>
+                    <span class="timeline-tag">Pionier der Fotografie</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <img class="timeline-portrait" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Louis_Daguerre_2.jpg/440px-Louis_Daguerre_2.jpg" alt="Daguerre" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year">1839</div>
+                    <div class="timeline-name">Louis <span>Daguerre</span></div>
+                    <div class="timeline-desc">Entwickelte das Daguerreotypie-Verfahren — die erste öffentlich bekannte Fotografie-Methode. Frankreich schenkte der Welt diese Erfindung als "freies Geschenk".</div>
+                    <span class="timeline-tag">Daguerreotypie</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <img class="timeline-portrait" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Nadar_autoportrait.jpg/440px-Nadar_autoportrait.jpg" alt="Nadar" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year">1860</div>
+                    <div class="timeline-name"><span>Nadar</span> (Gaspard-Félix Tournachon)</div>
+                    <div class="timeline-desc">Meister des Porträts — fotografierte Victor Hugo, Sarah Bernhardt und viele andere Berühmtheiten. Pionier der Luftfotografie aus einem Ballon.</div>
+                    <span class="timeline-tag">Porträtfotograf · Paris</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <img class="timeline-portrait" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Dorothea_Lange_-_Migrant_Mother.jpg/440px-Dorothea_Lange_-_Migrant_Mother.jpg" alt="Dorothea Lange" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year">1936</div>
+                    <div class="timeline-name">Dorothea <span>Lange</span></div>
+                    <div class="timeline-desc">Ihre Fotografie "Migrant Mother" wurde zum Symbol der Großen Depression. Pionierin der Dokumentarfotografie, die soziale Ungerechtigkeit sichtbar machte.</div>
+                    <span class="timeline-tag">Dokumentarfotografin · USA</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <img class="timeline-portrait" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Cartier-Bresson.jpg/440px-Cartier-Bresson.jpg" alt="Cartier-Bresson" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year">1952</div>
+                    <div class="timeline-name">Henri <span>Cartier-Bresson</span></div>
+                    <div class="timeline-desc">Begründer der Konzepts des "entscheidenden Augenblicks". Mitgründer der Agentur Magnum. Seine Straßenfotografien gelten als Meisterwerke des 20. Jahrhunderts.</div>
+                    <span class="timeline-tag">Straßenfotografie · Magnum</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <img class="timeline-portrait" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Yousuf-Karsh.jpg/440px-Yousuf-Karsh.jpg" alt="Yousuf Karsh" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year">1941</div>
+                    <div class="timeline-name">Yousuf <span>Karsh</span></div>
+                    <div class="timeline-desc">Armenisch-kanadischer Meisterfotograf. Sein Porträt von Winston Churchill ist eines der bekanntesten Fotos der Welt. Fotografierte Hemingway, Einstein und Picasso.</div>
+                    <span class="timeline-tag">Porträtfotograf · Kanada</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FILM TIMELINE -->
+    <div class="timeline-content" id="tl-film">
+        <div class="timeline-items">
+
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background:#F5B800;box-shadow:0 0 0 2px #F5B800;"></div>
+                <img class="timeline-portrait film" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Lumieres.jpg/440px-Lumieres.jpg" alt="Lumière" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year" style="color:#F5B800;">1895</div>
+                    <div class="timeline-name">Auguste & Louis <span>Lumière</span></div>
+                    <div class="timeline-desc">Erfinder des Cinématographe — die erste öffentliche Filmvorführung in Paris. "Die Ankunft eines Zuges am Bahnhof" ließ das Publikum erschrecken.</div>
+                    <span class="timeline-tag" style="border-color:rgba(245,184,0,0.4);color:#F5B800;">Geburt des Kinos</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background:#F5B800;box-shadow:0 0 0 2px #F5B800;"></div>
+                <img class="timeline-portrait film" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Chaplin_The_Kid.jpg/440px-Chaplin_The_Kid.jpg" alt="Chaplin" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year" style="color:#F5B800;">1921</div>
+                    <div class="timeline-name">Charlie <span>Chaplin</span></div>
+                    <div class="timeline-desc">"The Kid" — Chaplins erstes langer Film als Regisseur. Der Tramp wurde zum Symbol des Stummfilms und der sozialen Satire weltweit.</div>
+                    <span class="timeline-tag" style="border-color:rgba(245,184,0,0.4);color:#F5B800;">Stummfilm · Komödie</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background:#F5B800;box-shadow:0 0 0 2px #F5B800;"></div>
+                <img class="timeline-portrait film" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Sergei_Eisenstein_02.jpg/440px-Sergei_Eisenstein_02.jpg" alt="Eisenstein" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year" style="color:#F5B800;">1925</div>
+                    <div class="timeline-name">Sergei <span>Eisenstein</span></div>
+                    <div class="timeline-desc">"Panzerkreuzer Potemkin" — revolutionierte die Filmsprache durch die Montage-Theorie. Die Odessa-Treppe gilt als eine der einflussreichsten Filmszenen aller Zeiten.</div>
+                    <span class="timeline-tag" style="border-color:rgba(245,184,0,0.4);color:#F5B800;">Montage · Sowjet-Kino</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background:#F5B800;box-shadow:0 0 0 2px #F5B800;"></div>
+                <img class="timeline-portrait film" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Akira_Kurosawa.jpg/440px-Akira_Kurosawa.jpg" alt="Kurosawa" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year" style="color:#F5B800;">1950</div>
+                    <div class="timeline-name">Akira <span>Kurosawa</span></div>
+                    <div class="timeline-desc">"Rashomon" öffnete dem westlichen Publikum die Augen für das japanische Kino. "Die sieben Samurai" beeinflusste unzählige Westernfilme und gilt als ewiger Klassiker.</div>
+                    <span class="timeline-tag" style="border-color:rgba(245,184,0,0.4);color:#F5B800;">Japanisches Kino · Meister</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background:#F5B800;box-shadow:0 0 0 2px #F5B800;"></div>
+                <img class="timeline-portrait film" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Agnès_Varda_1961.jpg/440px-Agnès_Varda_1961.jpg" alt="Varda" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year" style="color:#F5B800;">1962</div>
+                    <div class="timeline-name">Agnès <span>Varda</span></div>
+                    <div class="timeline-desc">Pionierin der Nouvelle Vague und feministischen Filmkunst. "Cléo von 5 bis 7" ist ein Meisterwerk des Realzeit-Kinos. Sie wurde "Großmutter der Nouvelle Vague" genannt.</div>
+                    <span class="timeline-tag" style="border-color:rgba(245,184,0,0.4);color:#F5B800;">Nouvelle Vague · Feminismus</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background:#F5B800;box-shadow:0 0 0 2px #F5B800;"></div>
+                <img class="timeline-portrait film" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Yilmaz_Güney.jpg/440px-Yilmaz_Güney.jpg" alt="Yılmaz Güney" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year" style="color:#F5B800;">1982</div>
+                    <div class="timeline-name">Yılmaz <span>Güney</span></div>
+                    <div class="timeline-desc">"Yol" (Der Weg) — Palme d'Or in Cannes. Der kurdische Filmemacher schrieb das Drehbuch im Gefängnis. Ein Meisterwerk über Freiheit, Unterdrückung und kurdische Identität.</div>
+                    <span class="timeline-tag" style="border-color:rgba(245,184,0,0.4);color:#F5B800;">Kurdisches Kino · Palme d'Or</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FILOSOFIE TIMELINE -->
+    <div class="timeline-content" id="tl-phil">
+        <div class="timeline-items">
+
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background:#9b59b6;box-shadow:0 0 0 2px #9b59b6;"></div>
+                <img class="timeline-portrait" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Sócrates_Louvre.jpg/440px-Sócrates_Louvre.jpg" alt="Sokrates" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year" style="color:#9b59b6;">470–399 v.Chr.</div>
+                    <div class="timeline-name"><span>Sokrates</span></div>
+                    <div class="timeline-desc">Vater der westlichen Philosophie. Die Sokratische Methode — Fragen stellen bis zur Wahrheit — revolutionierte das Denken. "Ich weiß, dass ich nichts weiß."</div>
+                    <span class="timeline-tag" style="border-color:rgba(155,89,182,0.4);color:#9b59b6;">Antike · Athen</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background:#9b59b6;box-shadow:0 0 0 2px #9b59b6;"></div>
+                <img class="timeline-portrait" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Hypatia_portrait.png/440px-Hypatia_portrait.png" alt="Hypatia" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year" style="color:#9b59b6;">360–415 n.Chr.</div>
+                    <div class="timeline-name"><span>Hypatia</span> von Alexandria</div>
+                    <div class="timeline-desc">Erste bekannte Mathematikerin und Philosophin der Geschichte. Lehrte Astronomie und Philosophie in Alexandria. Ihr Tod markierte das Ende der antiken Philosophie.</div>
+                    <span class="timeline-tag" style="border-color:rgba(155,89,182,0.4);color:#9b59b6;">Antike · Mathematikerin</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background:#9b59b6;box-shadow:0 0 0 2px #9b59b6;"></div>
+                <img class="timeline-portrait" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Immanuel_Kant_%28painted_portrait%29.jpg/440px-Immanuel_Kant_%28painted_portrait%29.jpg" alt="Kant" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year" style="color:#9b59b6;">1781</div>
+                    <div class="timeline-name">Immanuel <span>Kant</span></div>
+                    <div class="timeline-desc">"Kritik der reinen Vernunft" — revolutionierte die Erkenntnistheorie. Kants kategorischer Imperativ ist bis heute Grundlage der modernen Ethik und Moralphilosophie.</div>
+                    <span class="timeline-tag" style="border-color:rgba(155,89,182,0.4);color:#9b59b6;">Aufklärung · Königsberg</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background:#9b59b6;box-shadow:0 0 0 2px #9b59b6;"></div>
+                <img class="timeline-portrait" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Simone_de_Beauvoir2.png/440px-Simone_de_Beauvoir2.png" alt="Simone de Beauvoir" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year" style="color:#9b59b6;">1949</div>
+                    <div class="timeline-name">Simone de <span>Beauvoir</span></div>
+                    <div class="timeline-desc">"Das andere Geschlecht" — Grundlagenwerk des modernen Feminismus. "Man wird nicht als Frau geboren, man wird dazu gemacht." Pionierin der existentialistischen Philosophie.</div>
+                    <span class="timeline-tag" style="border-color:rgba(155,89,182,0.4);color:#9b59b6;">Existentialismus · Feminismus</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background:#9b59b6;box-shadow:0 0 0 2px #9b59b6;"></div>
+                <img class="timeline-portrait" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Hannah_arendt-1975.jpg/440px-Hannah_arendt-1975.jpg" alt="Hannah Arendt" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year" style="color:#9b59b6;">1951</div>
+                    <div class="timeline-name">Hannah <span>Arendt</span></div>
+                    <div class="timeline-desc">"Elemente und Ursprünge totaler Herrschaft" — Analyse des Totalitarismus. Die deutsch-jüdische Philosophin prägte den Begriff der "Banalität des Bösen".</div>
+                    <span class="timeline-tag" style="border-color:rgba(155,89,182,0.4);color:#9b59b6;">Politische Philosophie</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background:#9b59b6;box-shadow:0 0 0 2px #9b59b6;"></div>
+                <img class="timeline-portrait" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Judith_Butler_2013.jpg/440px-Judith_Butler_2013.jpg" alt="Judith Butler" onerror="this.style.display='none'">
+                <div class="timeline-info">
+                    <div class="timeline-year" style="color:#9b59b6;">1990</div>
+                    <div class="timeline-name">Judith <span>Butler</span></div>
+                    <div class="timeline-desc">"Gender Trouble" — revolutionierte das Verständnis von Geschlecht und Identität. Butler zeigte, dass Geschlecht eine gesellschaftliche Konstruktion und Performance ist.</div>
+                    <span class="timeline-tag" style="border-color:rgba(155,89,182,0.4);color:#9b59b6;">Gender Theory · Queer</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </section>
 
 <!-- ARTIKEL -->
@@ -431,9 +702,25 @@ function setLang(l, btn) {
     document.getElementById('k3-desc').textContent = t.k3desc;
     document.getElementById('k3-btn').textContent = t.k3btn;
     loadArtikel();
+
+function showTimeline(id, btn) {
+    document.querySelectorAll('.timeline-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.timeline-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('tl-' + id).classList.add('active');
+    btn.classList.add('active');
+}
+
 }
 
 loadArtikel();
+
+function showTimeline(id, btn) {
+    document.querySelectorAll('.timeline-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.timeline-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('tl-' + id).classList.add('active');
+    btn.classList.add('active');
+}
+
 </script>
 </body>
 </html>
