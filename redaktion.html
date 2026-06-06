@@ -7,165 +7,185 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --gold:   #C9A84C;
-  --dunkel: #1a1a2e;
-  --grau:   #f4f4f0;
-  --weiss:  #ffffff;
-  --rot:    #c0392b;
-  --gruen:  #27ae60;
-  --orange: #e67e22;
-  --blau:   #2980b9;
-  --lila:   #8e44ad;
+  --gold:#C9A84C; --dunkel:#1a1a2e; --grau:#f4f4f0;
+  --rot:#c0392b; --rot-bg:#fdf2f2;
+  --gruen:#27ae60; --gruen-bg:#eafaf1;
+  --orange:#e67e22; --orange-bg:#fef9e7;
+  --blau:#2980b9; --blau-bg:#eaf4fb;
+  --lila:#8e44ad; --lila-bg:#f5eef8;
+  --teal:#0f6e56; --teal-bg:#e1f5ee;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Montserrat', sans-serif; background: var(--grau); color: #333; min-height: 100vh; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',sans-serif;background:var(--grau);color:#333;min-height:100vh}
 
-/* ── LOGIN ── */
-#login-page {
-  display: flex; align-items: center; justify-content: center;
-  min-height: 100vh; background: var(--dunkel);
-}
-.login-box {
-  background: #fff; padding: 48px; width: 380px;
-  border-top: 4px solid var(--gold);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-}
-.login-title { text-align:center; font-size:1.1rem; font-weight:700; color:var(--dunkel); margin-bottom:6px; }
-.login-sub   { text-align:center; font-size:0.72rem; color:#888; margin-bottom:32px; letter-spacing:1px; text-transform:uppercase; }
-.form-group  { margin-bottom:18px; }
-.form-group label { display:block; font-size:0.68rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:#666; margin-bottom:6px; }
-.form-group input { width:100%; padding:12px 14px; border:1px solid #ddd; font-family:'Montserrat',sans-serif; font-size:0.88rem; outline:none; transition:border 0.2s; }
-.form-group input:focus { border-color:var(--gold); }
-.btn-login { width:100%; padding:13px; background:var(--dunkel); color:#fff; border:none; font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.78rem; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:background 0.2s; }
-.btn-login:hover { background:var(--gold); }
-.login-error { color:var(--rot); font-size:0.78rem; text-align:center; margin-top:12px; display:none; }
+/* LOGIN */
+#login-page{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--dunkel)}
+.login-box{background:#fff;padding:48px;width:380px;border-top:4px solid var(--gold);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.login-title{text-align:center;font-size:1.1rem;font-weight:700;color:var(--dunkel);margin-bottom:6px}
+.login-sub{text-align:center;font-size:.72rem;color:#888;margin-bottom:32px;letter-spacing:1px;text-transform:uppercase}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:.68rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:6px}
+.form-group input{width:100%;padding:12px 14px;border:1px solid #ddd;font-family:'Montserrat',sans-serif;font-size:.88rem;outline:none;transition:border .2s}
+.form-group input:focus{border-color:var(--gold)}
+.btn-login{width:100%;padding:13px;background:var(--dunkel);color:#fff;border:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.btn-login:hover{background:var(--gold)}
+.login-error{color:var(--rot);font-size:.78rem;text-align:center;margin-top:12px;display:none}
 
-/* ── LAYOUT ── */
-#app { display:none; flex-direction:column; min-height:100vh; }
+/* APP LAYOUT */
+#app{display:none;flex-direction:column;min-height:100vh}
+.topbar{background:var(--dunkel);color:#fff;height:56px;display:flex;align-items:center;padding:0 24px;gap:16px;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--gold)}
+.topbar-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold)}
+.topbar-sub{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:#888;margin-left:4px}
+.topbar-spacer{flex:1}
+.topbar-user{font-size:.72rem;color:#aaa}
+.btn-logout{padding:6px 14px;background:transparent;border:1px solid #444;color:#aaa;font-size:.65rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s;font-family:'Montserrat',sans-serif}
+.btn-logout:hover{border-color:var(--gold);color:var(--gold)}
 
-/* ── TOPBAR ── */
-.topbar {
-  background:var(--dunkel); color:#fff; height:56px;
-  display:flex; align-items:center; padding:0 24px; gap:16px;
-  position:sticky; top:0; z-index:100;
-  border-bottom:2px solid var(--gold);
-}
-.topbar-logo { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--gold); }
-.topbar-sub  { font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:#888; margin-left:4px; }
-.topbar-spacer { flex:1; }
-.topbar-user { font-size:0.72rem; color:#aaa; }
-.btn-logout  { padding:6px 14px; background:transparent; border:1px solid #444; color:#aaa; font-size:0.65rem; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; font-family:'Montserrat',sans-serif; }
-.btn-logout:hover { border-color:var(--gold); color:var(--gold); }
+.nav-tabs{background:#fff;border-bottom:1px solid #e0e0e0;display:flex;padding:0 24px;overflow-x:auto}
+.nav-tab{padding:14px 16px;font-size:.68rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;color:#888;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap}
+.nav-tab:hover{color:var(--dunkel)}
+.nav-tab.active{color:var(--dunkel);border-bottom-color:var(--gold)}
 
-/* ── NAV TABS ── */
-.nav-tabs { background:#fff; border-bottom:1px solid #e0e0e0; display:flex; padding:0 24px; }
-.nav-tab  { padding:14px 20px; font-size:0.72rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; color:#888; border-bottom:3px solid transparent; transition:all 0.2s; }
-.nav-tab:hover  { color:var(--dunkel); }
-.nav-tab.active { color:var(--dunkel); border-bottom-color:var(--gold); }
+.main{flex:1;padding:24px;max-width:1400px;margin:0 auto;width:100%}
+.panel{display:none}
+.panel.active{display:block}
 
-/* ── MAIN CONTENT ── */
-.main { flex:1; padding:24px; max-width:1400px; margin:0 auto; width:100%; }
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat-card{background:#fff;padding:20px;border-top:3px solid var(--gold)}
+.stat-val{font-size:2rem;font-weight:700;color:var(--dunkel)}
+.stat-label{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:#888;margin-top:4px}
 
-/* ── PANELS ── */
-.panel { display:none; }
-.panel.active { display:block; }
+/* CARDS */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.card{background:#fff;padding:20px;margin-bottom:16px}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;border-bottom:2px solid var(--gold);padding-bottom:10px}
+.card-title{font-size:.78rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--dunkel)}
 
-/* ── STATS ── */
-.stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
-.stat-card { background:#fff; padding:20px; border-top:3px solid var(--gold); }
-.stat-val   { font-size:2rem; font-weight:700; color:var(--dunkel); }
-.stat-label { font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:#888; margin-top:4px; }
-.stat-sub   { font-size:0.72rem; color:#aaa; margin-top:4px; }
+/* ARTIKEL */
+.artikel-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid #f0f0f0}
+.artikel-item:last-child{border-bottom:none}
+.artikel-dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.dot-entwurf{background:#bbb}
+.dot-review{background:var(--orange)}
+.dot-freigabe{background:var(--blau)}
+.dot-online{background:var(--gruen)}
+.artikel-info{flex:1;min-width:0}
+.artikel-titel{font-size:.82rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.artikel-meta{font-size:.7rem;color:#888;margin-top:2px}
 
-/* ── ZWEI-SPALTEN ── */
-.two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+/* BADGES */
+.badge{display:inline-block;padding:2px 8px;font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.badge-film{background:var(--lila-bg);color:var(--lila)}
+.badge-interview{background:var(--blau-bg);color:var(--blau)}
+.badge-uebersetzung{background:var(--teal-bg);color:var(--teal)}
+.badge-vorstellung{background:var(--orange-bg);color:var(--orange)}
+.badge-artikel{background:var(--grau);color:#555}
+.badge-online{background:var(--gruen-bg);color:var(--gruen)}
+.badge-entwurf{background:#f5f5f5;color:#888}
+.badge-review{background:var(--orange-bg);color:var(--orange)}
+.badge-freigabe{background:var(--blau-bg);color:var(--blau)}
 
-/* ── KARTE ── */
-.card { background:#fff; padding:20px; margin-bottom:16px; }
-.card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; }
-.card-title  { font-size:0.78rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--dunkel); }
+/* TABELLE */
+.artikel-table{width:100%;border-collapse:collapse}
+.artikel-table th{background:var(--dunkel);color:#fff;padding:10px 14px;text-align:left;font-size:.65rem;letter-spacing:2px;text-transform:uppercase}
+.artikel-table td{padding:10px 14px;border-bottom:1px solid #f0f0f0;font-size:.82rem}
+.artikel-table tr:hover td{background:#fafafa}
+.btn-sm{padding:4px 10px;font-size:.65rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:1px solid #ddd;background:#fff;font-family:'Montserrat',sans-serif;transition:all .15s}
+.btn-sm:hover{background:var(--dunkel);color:#fff;border-color:var(--dunkel)}
+.btn-sm.success{background:var(--gruen);color:#fff;border-color:var(--gruen)}
+.btn-sm.danger:hover{background:var(--rot);border-color:var(--rot);color:#fff}
+.btn-sm.gold{background:var(--gold);color:#fff;border-color:var(--gold)}
 
-/* ── ARTIKEL LISTE ── */
-.artikel-item { display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-bottom:1px solid #f0f0f0; }
-.artikel-item:last-child { border-bottom:none; }
-.artikel-dot  { width:8px; height:8px; border-radius:50%; margin-top:5px; flex-shrink:0; }
-.dot-entwurf  { background:#bbb; }
-.dot-review   { background:var(--orange); }
-.dot-online   { background:var(--gruen); }
-.dot-film     { background:var(--lila); }
-.artikel-info { flex:1; min-width:0; }
-.artikel-titel { font-size:0.82rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.artikel-meta  { font-size:0.7rem; color:#888; margin-top:2px; }
-.badge { display:inline-block; padding:2px 8px; font-size:0.6rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
-.badge-film     { background:#f0ebf9; color:var(--lila); }
-.badge-phil     { background:#eaf4fb; color:var(--blau); }
-.badge-foto     { background:#fef9e7; color:var(--orange); }
-.badge-mag      { background:#eafaf1; color:var(--gruen); }
-.badge-online   { background:#eafaf1; color:var(--gruen); }
-.badge-entwurf  { background:#f5f5f5; color:#888; }
-.badge-review   { background:#fef5e7; color:var(--orange); }
+/* FORMULAR */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-full{grid-column:1/-1}
+label.field-label{display:block;font-size:.65rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:6px}
+input.field,select.field,textarea.field{width:100%;padding:10px 12px;border:1px solid #ddd;font-family:'Montserrat',sans-serif;font-size:.85rem;outline:none;transition:border .2s}
+input.field:focus,select.field:focus,textarea.field:focus{border-color:var(--gold)}
+textarea.field{height:140px;resize:vertical}
+.btn-primary{padding:12px 28px;background:var(--dunkel);color:#fff;border:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.btn-primary:hover{background:var(--gold)}
+.btn-secondary{padding:12px 28px;background:#fff;color:var(--dunkel);border:2px solid var(--dunkel);font-family:'Montserrat',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;margin-left:8px}
+.success-msg{display:none;padding:12px 16px;background:var(--gruen-bg);border-left:4px solid var(--gruen);color:var(--gruen);font-size:.8rem;margin-bottom:16px}
+.error-msg{display:none;padding:12px 16px;background:var(--rot-bg);border-left:4px solid var(--rot);color:var(--rot);font-size:.8rem;margin-bottom:16px}
 
-/* ── ARTIKEL TABELLE ── */
-.artikel-table { width:100%; border-collapse:collapse; }
-.artikel-table th { background:var(--dunkel); color:#fff; padding:10px 14px; text-align:left; font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; }
-.artikel-table td { padding:10px 14px; border-bottom:1px solid #f0f0f0; font-size:0.82rem; }
-.artikel-table tr:hover td { background:#fafafa; }
-.btn-sm { padding:4px 10px; font-size:0.65rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; border:1px solid #ddd; background:#fff; font-family:'Montserrat',sans-serif; transition:all 0.15s; }
-.btn-sm:hover { background:var(--dunkel); color:#fff; border-color:var(--dunkel); }
-.btn-sm.danger:hover { background:var(--rot); border-color:var(--rot); color:#fff; }
-.btn-sm.success { background:var(--gruen); color:#fff; border-color:var(--gruen); }
+/* SPRACH-TABS */
+.lang-tabs{display:flex;gap:0;margin-bottom:16px}
+.lang-tab{padding:8px 16px;font-size:.65rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;background:#f5f5f5;border:1px solid #ddd;color:#666;transition:all .15s}
+.lang-tab.active{background:var(--dunkel);color:#fff;border-color:var(--dunkel)}
+.lang-panel{display:none}
+.lang-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 
-/* ── NEUER ARTIKEL FORM ── */
-.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.form-full  { grid-column:1/-1; }
-.form-group-inner { margin-bottom:0; }
-label.field-label { display:block; font-size:0.65rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:#666; margin-bottom:6px; }
-input.field, select.field, textarea.field {
-  width:100%; padding:10px 12px; border:1px solid #ddd;
-  font-family:'Montserrat',sans-serif; font-size:0.85rem; outline:none; transition:border 0.2s;
-}
-input.field:focus, select.field:focus, textarea.field:focus { border-color:var(--gold); }
-textarea.field { height:160px; resize:vertical; }
-.lang-tabs { display:flex; gap:0; margin-bottom:16px; }
-.lang-tab  { padding:8px 16px; font-size:0.65rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; background:#f5f5f5; border:1px solid #ddd; color:#666; transition:all 0.15s; }
-.lang-tab.active { background:var(--dunkel); color:#fff; border-color:var(--dunkel); }
-.lang-panel { display:none; }
-.lang-panel.active { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.btn-primary { padding:12px 28px; background:var(--dunkel); color:#fff; border:none; font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:background 0.2s; }
-.btn-primary:hover { background:var(--gold); }
-.btn-secondary { padding:12px 28px; background:#fff; color:var(--dunkel); border:2px solid var(--dunkel); font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; cursor:pointer; margin-left:8px; }
-.success-msg { display:none; padding:12px 16px; background:#eafaf1; border-left:4px solid var(--gruen); color:var(--gruen); font-size:0.8rem; margin-bottom:16px; }
+/* QUARTAL-PLAN */
+.quartal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.quartal-card{background:#fff;border-top:4px solid var(--gold);padding:20px;cursor:pointer;transition:box-shadow .2s}
+.quartal-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.quartal-card.active-q{border-top-color:var(--dunkel);background:#f8f8f5}
+.quartal-nr{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888}
+.quartal-name{font-size:1rem;font-weight:700;color:var(--dunkel);margin:6px 0}
+.quartal-zeitraum{font-size:.72rem;color:#888}
+.quartal-count{font-size:1.4rem;font-weight:700;color:var(--gold);margin-top:12px}
+.quartal-count-label{font-size:.65rem;color:#888;letter-spacing:1px;text-transform:uppercase}
+.progress-bar-wrap{height:4px;background:#e0e0e0;margin-top:12px}
+.progress-bar{height:4px;background:var(--gold);transition:width .4s}
 
-/* ── REDAKTIONSPLAN ── */
-.plan-grid { display:grid; grid-template-columns:90px repeat(7,1fr); gap:3px; }
-.plan-head  { font-size:0.62rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; text-align:center; padding:8px 4px; color:#888; }
-.plan-label { font-size:0.7rem; color:#666; padding:10px 4px; display:flex; align-items:center; font-weight:600; }
-.plan-cell  { padding:6px; min-height:44px; border:1px solid #e8e8e8; background:#fff; font-size:0.68rem; cursor:pointer; transition:background 0.15s; }
-.plan-cell:hover { border-color:var(--gold); }
-.plan-cell.leer { background:#fafafa; }
-.pc-film { background:#f0ebf9; border-color:#c9a8e8; }
-.pc-phil { background:#eaf4fb; border-color:#85c1e9; }
-.pc-foto { background:#fef9e7; border-color:#f7dc6f; }
-.pc-mag  { background:#eafaf1; border-color:#82e0aa; }
-.pc-titel { font-weight:600; }
-.pc-autor { color:#888; margin-top:2px; }
+.rubrik-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px}
+.rubrik-card{padding:14px;text-align:center;cursor:pointer;border:2px solid transparent;transition:all .2s}
+.rubrik-card:hover{border-color:var(--gold)}
+.rubrik-card.active-r{border-color:var(--dunkel);background:#f8f8f5}
+.rubrik-icon{font-size:1.4rem;margin-bottom:6px}
+.rubrik-name{font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#555}
+.rubrik-count{font-size:1.2rem;font-weight:700;margin-top:4px}
 
-/* ── TEAM ── */
-.team-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-.team-card { background:#fff; padding:20px; border-top:3px solid transparent; transition:border-color 0.2s; }
-.team-card:hover { border-top-color:var(--gold); }
-.team-name { font-size:0.88rem; font-weight:700; color:var(--dunkel); }
-.team-role { font-size:0.68rem; color:#888; letter-spacing:1px; text-transform:uppercase; margin-top:2px; margin-bottom:14px; }
-.team-stats { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-.team-stat  { background:var(--grau); padding:10px; }
-.team-stat-val   { font-size:1.3rem; font-weight:700; color:var(--dunkel); }
-.team-stat-label { font-size:0.6rem; color:#888; letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
-.workload-bar-wrap { height:3px; background:#e0e0e0; margin-top:12px; }
-.workload-bar { height:3px; transition:width 0.4s; }
-.workload-label { display:flex; justify-content:space-between; font-size:0.62rem; color:#aaa; margin-top:4px; }
+/* MITARBEITER */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.team-card{background:#fff;padding:20px;border-top:3px solid transparent;transition:border-color .2s}
+.team-card:hover{border-top-color:var(--gold)}
+.team-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;margin-bottom:12px;color:#fff}
+.team-name{font-size:.88rem;font-weight:700;color:var(--dunkel)}
+.team-role-badge{display:inline-block;padding:3px 10px;font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin:4px 0 10px}
+.role-admin{background:var(--dunkel);color:#fff}
+.role-chef{background:var(--gold);color:var(--dunkel)}
+.role-redakteurin{background:var(--blau-bg);color:var(--blau)}
+.role-autorin{background:var(--teal-bg);color:var(--teal)}
+.role-gastautorin{background:var(--lila-bg);color:var(--lila)}
+.team-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.team-stat{background:var(--grau);padding:8px;text-align:center}
+.team-stat-val{font-size:1.2rem;font-weight:700;color:var(--dunkel)}
+.team-stat-label{font-size:.58rem;color:#888;letter-spacing:1px;text-transform:uppercase}
 
-/* ── LOADING ── */
-.loading { text-align:center; padding:40px; color:#aaa; font-size:0.8rem; letter-spacing:1px; text-transform:uppercase; }
+/* WORKFLOW PIPELINE */
+.pipeline{display:flex;gap:0;margin-bottom:24px;overflow:hidden}
+.pipe-step{flex:1;padding:14px;text-align:center;background:#f5f5f5;border-right:1px solid #e0e0e0;position:relative}
+.pipe-step:last-child{border-right:none}
+.pipe-step.active-pipe{background:var(--dunkel);color:#fff}
+.pipe-step.done-pipe{background:var(--gruen-bg)}
+.pipe-num{font-size:1.4rem;font-weight:700}
+.pipe-label{font-size:.62rem;letter-spacing:1px;text-transform:uppercase;margin-top:4px;color:inherit}
+.pipe-count{font-size:.75rem;margin-top:2px;opacity:.7}
+
+/* MAGAZIN AUSGABEN */
+.magazin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.magazin-card{background:#fff;overflow:hidden;cursor:pointer;transition:box-shadow .2s}
+.magazin-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.magazin-cover{height:140px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;text-align:center;padding:16px}
+.magazin-info{padding:14px}
+.magazin-titel{font-size:.82rem;font-weight:700;color:var(--dunkel);margin-bottom:4px}
+.magazin-meta{font-size:.68rem;color:#888}
+.magazin-status{display:inline-block;padding:2px 8px;font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:8px}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;width:90%;max-width:600px;max-height:85vh;overflow-y:auto;padding:32px}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;border-bottom:2px solid var(--gold);padding-bottom:12px}
+.modal-title{font-size:.88rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--dunkel)}
+.modal-close{cursor:pointer;font-size:1.2rem;color:#888;background:none;border:none;padding:4px 8px}
+.modal-close:hover{color:var(--rot)}
+
+.loading{text-align:center;padding:40px;color:#aaa;font-size:.8rem;letter-spacing:1px;text-transform:uppercase}
 </style>
 </head>
 <body>
@@ -199,85 +219,158 @@ textarea.field { height:160px; resize:vertical; }
   </div>
 
   <div class="nav-tabs">
-    <div class="nav-tab active" onclick="showPanel('dashboard')">Dashboard</div>
-    <div class="nav-tab" onclick="showPanel('artikel')">Alle Artikel</div>
-    <div class="nav-tab" onclick="showPanel('neu')">Neuer Artikel</div>
-    <div class="nav-tab" onclick="showPanel('plan')">Redaktionsplan</div>
-    <div class="nav-tab" onclick="showPanel('team')">Team</div>
+    <div class="nav-tab active" onclick="showPanel('dashboard')">📊 Dashboard</div>
+    <div class="nav-tab" onclick="showPanel('quartal')">📅 Quartal-Plan</div>
+    <div class="nav-tab" onclick="showPanel('artikel')">📰 Alle Artikel</div>
+    <div class="nav-tab" onclick="showPanel('neu')">✏️ Neuer Beitrag</div>
+    <div class="nav-tab" onclick="showPanel('magazin')">📖 Magazin-Ausgaben</div>
+    <div class="nav-tab" onclick="showPanel('team')">👥 Team</div>
+    <div class="nav-tab" onclick="showPanel('mitarbeiter')">⚙️ Mitarbeiter</div>
   </div>
 
   <div class="main">
 
-    <!-- DASHBOARD -->
+    <!-- ═══════ DASHBOARD ═══════ -->
     <div class="panel active" id="panel-dashboard">
-      <div class="stats-row" id="stats-row">
+      <div class="stats-row">
         <div class="stat-card"><div class="stat-val" id="s-gesamt">–</div><div class="stat-label">Artikel gesamt</div></div>
-        <div class="stat-card"><div class="stat-val" id="s-online">–</div><div class="stat-label">Veröffentlicht</div></div>
-        <div class="stat-card"><div class="stat-val" id="s-entwurf">–</div><div class="stat-label">Entwürfe</div></div>
-        <div class="stat-card"><div class="stat-val">4</div><div class="stat-label">Kategorien</div></div>
+        <div class="stat-card"><div class="stat-val" id="s-online" style="color:var(--gruen)">–</div><div class="stat-label">Online</div></div>
+        <div class="stat-card"><div class="stat-val" id="s-review" style="color:var(--orange)">–</div><div class="stat-label">In Review</div></div>
+        <div class="stat-card"><div class="stat-val" id="s-entwurf" style="color:#aaa">–</div><div class="stat-label">Entwürfe</div></div>
       </div>
+
+      <!-- Workflow Pipeline -->
+      <div class="pipeline" id="pipeline">
+        <div class="pipe-step"><div class="pipe-num" id="p-entwurf">–</div><div class="pipe-label">Entwurf</div></div>
+        <div class="pipe-step active-pipe"><div class="pipe-num" id="p-review">–</div><div class="pipe-label">Review</div></div>
+        <div class="pipe-step"><div class="pipe-num" id="p-freigabe">–</div><div class="pipe-label">Freigabe</div></div>
+        <div class="pipe-step done-pipe"><div class="pipe-num" id="p-online">–</div><div class="pipe-label">Online</div></div>
+      </div>
+
       <div class="two-col">
         <div class="card">
           <div class="card-header">
-            <div class="card-title">Aktuelle Artikel</div>
-            <span style="font-size:0.7rem;color:#888;cursor:pointer" onclick="showPanel('artikel')">Alle anzeigen →</span>
+            <div class="card-title">Neueste Beiträge</div>
+            <span style="font-size:.7rem;color:#888;cursor:pointer" onclick="showPanel('artikel')">Alle →</span>
           </div>
           <div id="dash-artikel"><div class="loading">Laden…</div></div>
         </div>
         <div class="card">
           <div class="card-header">
-            <div class="card-title">Kategorien</div>
+            <div class="card-title">Aktuelles Quartal</div>
+            <span style="font-size:.7rem;color:#888;cursor:pointer" onclick="showPanel('quartal')">Plan →</span>
           </div>
-          <div id="dash-kategorien"><div class="loading">Laden…</div></div>
+          <div id="dash-quartal"><div class="loading">Laden…</div></div>
         </div>
       </div>
     </div>
 
-    <!-- ALLE ARTIKEL -->
-    <div class="panel" id="panel-artikel">
+    <!-- ═══════ QUARTAL-PLAN ═══════ -->
+    <div class="panel" id="panel-quartal">
+      <div class="quartal-grid" id="quartal-grid"></div>
+
       <div class="card">
         <div class="card-header">
-          <div class="card-title">Alle Artikel</div>
-          <div style="display:flex;gap:8px;align-items:center">
-            <select id="filter-kat" class="field" style="width:auto;padding:6px 10px;font-size:0.75rem" onchange="renderArtikelTabelle()">
-              <option value="">Alle Kategorien</option>
-              <option>Film</option>
-              <option>Philosophie</option>
-              <option>Fotografie</option>
-              <option>Magazin</option>
-            </select>
-            <select id="filter-pub" class="field" style="width:auto;padding:6px 10px;font-size:0.75rem" onchange="renderArtikelTabelle()">
-              <option value="">Alle Status</option>
-              <option value="true">Online</option>
-              <option value="false">Entwurf</option>
-            </select>
+          <div class="card-title" id="quartal-aktiv-title">Quartal auswählen</div>
+          <button class="btn-sm gold" onclick="openMagazinModal()">+ Magazin-Ausgabe planen</button>
+        </div>
+
+        <!-- Rubriken -->
+        <div class="rubrik-grid" id="rubrik-grid">
+          <div class="rubrik-card active-r" onclick="filterRubrik('')" id="rb-alle">
+            <div class="rubrik-icon">📋</div>
+            <div class="rubrik-name">Alle</div>
+            <div class="rubrik-count" id="rc-alle">–</div>
+          </div>
+          <div class="rubrik-card" onclick="filterRubrik('Artikel')" id="rb-artikel">
+            <div class="rubrik-icon">📝</div>
+            <div class="rubrik-name">Artikel</div>
+            <div class="rubrik-count" id="rc-artikel">–</div>
+          </div>
+          <div class="rubrik-card" onclick="filterRubrik('Interview')" id="rb-interview">
+            <div class="rubrik-icon">🎙️</div>
+            <div class="rubrik-name">Interview</div>
+            <div class="rubrik-count" id="rc-interview">–</div>
+          </div>
+          <div class="rubrik-card" onclick="filterRubrik('Übersetzung')" id="rb-uebersetzung">
+            <div class="rubrik-icon">🌍</div>
+            <div class="rubrik-name">Übersetzung</div>
+            <div class="rubrik-count" id="rc-uebersetzung">–</div>
+          </div>
+          <div class="rubrik-card" onclick="filterRubrik('Filmvorstellung')" id="rb-film">
+            <div class="rubrik-icon">🎬</div>
+            <div class="rubrik-name">Filmvorstellung</div>
+            <div class="rubrik-count" id="rc-film">–</div>
           </div>
         </div>
+
         <div style="overflow-x:auto">
-          <table class="artikel-table">
+          <table class="artikel-table" id="quartal-table">
             <thead>
-              <tr>
-                <th>#</th><th>Titel</th><th>Kategorie</th><th>Autor</th><th>Status</th><th>Datum</th><th>Aktionen</th>
-              </tr>
+              <tr><th>#</th><th>Titel</th><th>Rubrik</th><th>Autor</th><th>Status</th><th>Sprachen</th><th>Aktionen</th></tr>
             </thead>
-            <tbody id="artikel-tbody"><tr><td colspan="7" class="loading">Laden…</td></tr></tbody>
+            <tbody id="quartal-tbody"><tr><td colspan="7" class="loading">Quartal wählen ↑</td></tr></tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- NEUER ARTIKEL -->
-    <div class="panel" id="panel-neu">
+    <!-- ═══════ ALLE ARTIKEL ═══════ -->
+    <div class="panel" id="panel-artikel">
       <div class="card">
         <div class="card-header">
-          <div class="card-title">Neuer Artikel</div>
+          <div class="card-title">Alle Beiträge</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <select id="f-status" class="field" style="width:auto;padding:6px 10px;font-size:.72rem" onchange="renderTabelle()">
+              <option value="">Alle Status</option>
+              <option value="entwurf">Entwurf</option>
+              <option value="review">In Review</option>
+              <option value="freigabe">Freigabe</option>
+              <option value="online">Online</option>
+            </select>
+            <select id="f-rubrik" class="field" style="width:auto;padding:6px 10px;font-size:.72rem" onchange="renderTabelle()">
+              <option value="">Alle Rubriken</option>
+              <option>Artikel</option><option>Interview</option>
+              <option>Übersetzung</option><option>Filmvorstellung</option>
+            </select>
+            <select id="f-kat" class="field" style="width:auto;padding:6px 10px;font-size:.72rem" onchange="renderTabelle()">
+              <option value="">Alle Kategorien</option>
+              <option>Film</option><option>Philosophie</option>
+              <option>Fotografie</option><option>Magazin</option>
+            </select>
+          </div>
         </div>
-        <div class="success-msg" id="success-msg">✅ Artikel erfolgreich erstellt!</div>
+        <div style="overflow-x:auto">
+          <table class="artikel-table">
+            <thead><tr><th>#</th><th>Titel</th><th>Rubrik</th><th>Kategorie</th><th>Autor</th><th>Status</th><th>Datum</th><th>Aktionen</th></tr></thead>
+            <tbody id="artikel-tbody"><tr><td colspan="8" class="loading">Laden…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-        <div class="form-grid" style="margin-bottom:16px">
+    <!-- ═══════ NEUER BEITRAG ═══════ -->
+    <div class="panel" id="panel-neu">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Neuer Beitrag erstellen</div></div>
+        <div class="success-msg" id="neu-success">✅ Beitrag erfolgreich gespeichert!</div>
+        <div class="error-msg" id="neu-error"></div>
+
+        <div class="form-grid" style="margin-bottom:20px">
           <div>
-            <label class="field-label">Kategorie</label>
+            <label class="field-label">Rubrik *</label>
+            <select id="neu-rubrik" class="field">
+              <option value="">– Rubrik wählen –</option>
+              <option>Artikel</option>
+              <option>Interview</option>
+              <option>Übersetzung</option>
+              <option>Filmvorstellung</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label">Kategorie *</label>
             <select id="neu-category" class="field">
+              <option value="">– Kategorie wählen –</option>
               <option>Film</option>
               <option>Philosophie</option>
               <option>Fotografie</option>
@@ -285,96 +378,92 @@ textarea.field { height:160px; resize:vertical; }
             </select>
           </div>
           <div>
-            <label class="field-label">Autor</label>
+            <label class="field-label">Autorin / Autor *</label>
             <input type="text" id="neu-author" class="field" placeholder="Name der Autorin">
+          </div>
+          <div>
+            <label class="field-label">Quartal zuordnen</label>
+            <select id="neu-quartal" class="field">
+              <option value="">– Kein Quartal –</option>
+              <option value="Q1-2026">Q1 2026 (Jan–Mär)</option>
+              <option value="Q2-2026">Q2 2026 (Apr–Jun)</option>
+              <option value="Q3-2026">Q3 2026 (Jul–Sep)</option>
+              <option value="Q4-2026">Q4 2026 (Okt–Dez)</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label">Status</label>
+            <select id="neu-status" class="field">
+              <option value="entwurf">Entwurf (noch in Arbeit)</option>
+              <option value="review">In Review (zur Prüfung)</option>
+              <option value="freigabe">Freigabe (bereit)</option>
+            </select>
           </div>
           <div>
             <label class="field-label">Veröffentlichen</label>
             <select id="neu-published" class="field">
-              <option value="true">Ja – sofort veröffentlichen</option>
-              <option value="false">Nein – als Entwurf speichern</option>
+              <option value="false">Nein – als Entwurf</option>
+              <option value="true">Ja – sofort online</option>
             </select>
           </div>
           <div>
             <label class="field-label">Foto hochladen</label>
             <input type="file" id="neu-foto" class="field" accept="image/jpeg,image/png,image/webp">
           </div>
+          <div>
+            <label class="field-label">Video hochladen</label>
+            <input type="file" id="neu-video" class="field" accept="video/mp4,video/quicktime">
+          </div>
         </div>
 
         <div class="lang-tabs">
-          <div class="lang-tab active" onclick="showLang('de')">🇩🇪 Deutsch</div>
-          <div class="lang-tab" onclick="showLang('kmj')">Kurmanji</div>
-          <div class="lang-tab" onclick="showLang('sor')">Sorani</div>
-          <div class="lang-tab" onclick="showLang('en')">🇬🇧 English</div>
+          <div class="lang-tab active" onclick="showLang('de',this)">🇩🇪 Deutsch</div>
+          <div class="lang-tab" onclick="showLang('kmj',this)">Kurmanji</div>
+          <div class="lang-tab" onclick="showLang('sor',this)">سۆرانی</div>
+          <div class="lang-tab" onclick="showLang('en',this)">🇬🇧 English</div>
         </div>
 
         <div class="lang-panel active" id="lang-de">
-          <div>
-            <label class="field-label">Titel Deutsch *</label>
-            <input type="text" id="neu-title-de" class="field" placeholder="Titel auf Deutsch">
-          </div>
+          <div><label class="field-label">Titel Deutsch *</label><input type="text" id="t-de" class="field" placeholder="Titel"></div>
           <div></div>
-          <div class="form-full">
-            <label class="field-label">Text Deutsch *</label>
-            <textarea id="neu-content-de" class="field" placeholder="Artikeltext auf Deutsch…"></textarea>
-          </div>
+          <div class="form-full"><label class="field-label">Text Deutsch *</label><textarea id="c-de" class="field"></textarea></div>
         </div>
-
         <div class="lang-panel" id="lang-kmj">
-          <div>
-            <label class="field-label">Titel Kurmanji</label>
-            <input type="text" id="neu-title-kmj" class="field" placeholder="Sernavê bi Kurmancî">
-          </div>
+          <div><label class="field-label">Sernavê bi Kurmancî</label><input type="text" id="t-kmj" class="field"></div>
           <div></div>
-          <div class="form-full">
-            <label class="field-label">Text Kurmanji</label>
-            <textarea id="neu-content-kmj" class="field" placeholder="Nivîsa gotarê bi Kurmancî…"></textarea>
-          </div>
+          <div class="form-full"><label class="field-label">Nivîsa gotarê</label><textarea id="c-kmj" class="field"></textarea></div>
         </div>
-
         <div class="lang-panel" id="lang-sor">
-          <div>
-            <label class="field-label">Titel Sorani</label>
-            <input type="text" id="neu-title-sor" class="field" placeholder="ناونیشان بە سۆرانی" dir="rtl">
-          </div>
+          <div><label class="field-label">ناونیشان بە سۆرانی</label><input type="text" id="t-sor" class="field" dir="rtl"></div>
           <div></div>
-          <div class="form-full">
-            <label class="field-label">Text Sorani</label>
-            <textarea id="neu-content-sor" class="field" placeholder="دەقی بابەت بە سۆرانی…" dir="rtl"></textarea>
-          </div>
+          <div class="form-full"><label class="field-label">دەقی بابەت</label><textarea id="c-sor" class="field" dir="rtl"></textarea></div>
         </div>
-
         <div class="lang-panel" id="lang-en">
-          <div>
-            <label class="field-label">Title English</label>
-            <input type="text" id="neu-title-en" class="field" placeholder="Title in English">
-          </div>
+          <div><label class="field-label">Title in English</label><input type="text" id="t-en" class="field"></div>
           <div></div>
-          <div class="form-full">
-            <label class="field-label">Text English</label>
-            <textarea id="neu-content-en" class="field" placeholder="Article text in English…"></textarea>
-          </div>
+          <div class="form-full"><label class="field-label">Article text</label><textarea id="c-en" class="field"></textarea></div>
         </div>
 
         <div style="margin-top:20px;display:flex;align-items:center;gap:12px">
-          <button class="btn-primary" onclick="createArtikel()">💾 Artikel speichern</button>
-          <button class="btn-secondary" onclick="resetForm()">Abbrechen</button>
-          <span id="form-status" style="font-size:0.75rem;color:#888"></span>
+          <button class="btn-primary" onclick="createBeitrag()">💾 Beitrag speichern</button>
+          <button class="btn-secondary" onclick="resetForm()">Zurücksetzen</button>
+          <span id="form-status" style="font-size:.75rem;color:#888"></span>
         </div>
       </div>
     </div>
 
-    <!-- REDAKTIONSPLAN -->
-    <div class="panel" id="panel-plan">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Redaktionsplan – KW 24, Juni 2026</div>
-        </div>
-        <div class="plan-grid" id="plan-grid"></div>
+    <!-- ═══════ MAGAZIN-AUSGABEN ═══════ -->
+    <div class="panel" id="panel-magazin">
+      <div class="card-header" style="margin-bottom:16px">
+        <div class="card-title">Magazin-Ausgaben</div>
+        <button class="btn-sm gold" onclick="openMagazinModal()">+ Neue Ausgabe planen</button>
+      </div>
+      <div class="magazin-grid" id="magazin-grid">
+        <!-- Vordefinierte Ausgaben -->
       </div>
     </div>
 
-    <!-- TEAM -->
+    <!-- ═══════ TEAM ═══════ -->
     <div class="panel" id="panel-team">
       <div class="card-header" style="margin-bottom:16px">
         <div class="card-title">Team-Übersicht</div>
@@ -382,6 +471,107 @@ textarea.field { height:160px; resize:vertical; }
       <div class="team-grid" id="team-grid"></div>
     </div>
 
+    <!-- ═══════ MITARBEITER VERWALTUNG ═══════ -->
+    <div class="panel" id="panel-mitarbeiter">
+      <div class="two-col">
+        <div class="card">
+          <div class="card-header"><div class="card-title">Neue Mitarbeiterin anlegen</div></div>
+          <div class="success-msg" id="ma-success">✅ Mitarbeiterin erfolgreich angelegt!</div>
+          <div class="error-msg" id="ma-error"></div>
+
+          <div style="margin-bottom:14px">
+            <label class="field-label">Vollständiger Name *</label>
+            <input type="text" id="ma-name" class="field" placeholder="z.B. Selin Kaya">
+          </div>
+          <div style="margin-bottom:14px">
+            <label class="field-label">Benutzername *</label>
+            <input type="text" id="ma-username" class="field" placeholder="z.B. selin (kein Leerzeichen)">
+          </div>
+          <div style="margin-bottom:14px">
+            <label class="field-label">E-Mail *</label>
+            <input type="email" id="ma-email" class="field" placeholder="selin@fak.de">
+          </div>
+          <div style="margin-bottom:14px">
+            <label class="field-label">Passwort *</label>
+            <input type="password" id="ma-passwort" class="field" placeholder="Mindestens 8 Zeichen">
+          </div>
+          <div style="margin-bottom:20px">
+            <label class="field-label">Rolle *</label>
+            <select id="ma-rolle" class="field">
+              <option value="autorin">Autorin — kann eigene Artikel erstellen</option>
+              <option value="gastautorin">Gastbeiträgerin — einmalige Beiträge</option>
+              <option value="redakteurin">Redakteurin — kann alle Artikel bearbeiten</option>
+              <option value="chefredaktion">Chefredaktion — Freigaben & Planung</option>
+              <option value="admin">Admin — vollständiger Zugriff</option>
+            </select>
+          </div>
+          <div style="margin-bottom:14px">
+            <label class="field-label">Beschreibung / Notizen</label>
+            <textarea id="ma-notiz" class="field" style="height:80px" placeholder="z.B. Zuständig für Film-Rubriken, Gastautorin Q3 2026"></textarea>
+          </div>
+          <button class="btn-primary" onclick="addMitarbeiterin()">Mitarbeiterin anlegen</button>
+
+          <div style="margin-top:24px;padding-top:16px;border-top:1px solid #eee">
+            <div style="font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#888;margin-bottom:12px">Rollen erklärt</div>
+            <div style="font-size:.75rem;color:#555;line-height:1.8">
+              <span style="font-weight:700">👑 Admin:</span> Vollzugriff, Einstellungen<br>
+              <span style="font-weight:700">✍️ Chefredaktion:</span> Freigaben, Planung, alle Artikel<br>
+              <span style="font-weight:700">📝 Redakteurin:</span> Artikel bearbeiten & reviewen<br>
+              <span style="font-weight:700">🖊️ Autorin:</span> Eigene Artikel erstellen<br>
+              <span style="font-weight:700">💫 Gastbeiträgerin:</span> Einmalige/seltene Beiträge
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><div class="card-title">Aktuelle Mitarbeiterinnen</div></div>
+          <div id="ma-liste"><div class="loading">Laden…</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MAGAZIN MODAL -->
+<div class="modal-overlay" id="magazin-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Magazin-Ausgabe planen</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div style="margin-bottom:14px">
+      <label class="field-label">Ausgabe-Name</label>
+      <input type="text" id="m-name" class="field" placeholder="z.B. FAK Magazin Q3 2026">
+    </div>
+    <div style="margin-bottom:14px">
+      <label class="field-label">Quartal</label>
+      <select id="m-quartal" class="field">
+        <option value="Q1-2026">Q1 2026 (Januar – März)</option>
+        <option value="Q2-2026">Q2 2026 (April – Juni)</option>
+        <option value="Q3-2026" selected>Q3 2026 (Juli – September)</option>
+        <option value="Q4-2026">Q4 2026 (Oktober – Dezember)</option>
+      </select>
+    </div>
+    <div style="margin-bottom:14px">
+      <label class="field-label">Erscheinungsdatum (geplant)</label>
+      <input type="date" id="m-datum" class="field">
+    </div>
+    <div style="margin-bottom:14px">
+      <label class="field-label">Thema / Schwerpunkt</label>
+      <input type="text" id="m-thema" class="field" placeholder="z.B. Kurdische Frauen in der Filmgeschichte">
+    </div>
+    <div style="margin-bottom:20px">
+      <label class="field-label">Geplante Rubriken</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+        <label style="font-size:.78rem;display:flex;align-items:center;gap:8px;font-weight:400"><input type="checkbox" id="rb-check-artikel" checked> Artikel</label>
+        <label style="font-size:.78rem;display:flex;align-items:center;gap:8px;font-weight:400"><input type="checkbox" id="rb-check-interview" checked> Interview</label>
+        <label style="font-size:.78rem;display:flex;align-items:center;gap:8px;font-weight:400"><input type="checkbox" id="rb-check-uebersetzung" checked> Übersetzung</label>
+        <label style="font-size:.78rem;display:flex;align-items:center;gap:8px;font-weight:400"><input type="checkbox" id="rb-check-film" checked> Filmvorstellung</label>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="saveMagazin()">Ausgabe anlegen</button>
+    <button class="btn-secondary" onclick="closeModal()">Abbrechen</button>
   </div>
 </div>
 
@@ -389,8 +579,32 @@ textarea.field { height:160px; resize:vertical; }
 const API = '/api';
 let token = '';
 let alleArtikel = [];
+let alleUsers = [];
+let aktQuartal = 'Q2-2026';
+let aktRubrik = '';
 
-// ── AUTH ────────────────────────────────────────────────
+// Lokale Magazin-Ausgaben (werden im localStorage gespeichert)
+let magazinAusgaben = JSON.parse(localStorage.getItem('fak_magazin') || '[]');
+if (magazinAusgaben.length === 0) {
+  magazinAusgaben = [
+    { id:1, name:'FAK Magazin Q1 2026', quartal:'Q1-2026', thema:'Frauen im kurdischen Film', datum:'2026-03-31', status:'veröffentlicht', farbe:'#1a1a2e' },
+    { id:2, name:'FAK Magazin Q2 2026', quartal:'Q2-2026', thema:'Philosophie der Befreiung', datum:'2026-06-30', status:'in Planung', farbe:'#C9A84C' },
+    { id:3, name:'FAK Magazin Q3 2026', quartal:'Q3-2026', thema:'Dokumentarfilm & Widerstand', datum:'2026-09-30', status:'geplant', farbe:'#0f6e56' },
+    { id:4, name:'FAK Magazin Q4 2026', quartal:'Q4-2026', thema:'Jahresrückblick', datum:'2026-12-31', status:'geplant', farbe:'#8e44ad' },
+  ];
+  localStorage.setItem('fak_magazin', JSON.stringify(magazinAusgaben));
+}
+
+// Lokale Mitarbeiterinnen (im localStorage)
+let mitarbeiterinnen = JSON.parse(localStorage.getItem('fak_team') || '[]');
+if (mitarbeiterinnen.length === 0) {
+  mitarbeiterinnen = [
+    { id:1, name:'Admin FAK', username:'admin', email:'admin@fak.de', rolle:'admin', notiz:'Systemadministration' },
+  ];
+  localStorage.setItem('fak_team', JSON.stringify(mitarbeiterinnen));
+}
+
+// ── AUTH ──────────────────────────────────────────────────
 async function doLogin() {
   const user = document.getElementById('login-user').value.trim();
   const pass = document.getElementById('login-pass').value;
@@ -398,9 +612,8 @@ async function doLogin() {
   errEl.style.display = 'none';
   try {
     const r = await fetch(API + '/login', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({username: user, password: pass})
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({username:user, password:pass})
     });
     const data = await r.json();
     if (!r.ok) throw new Error(data.detail || 'Fehler');
@@ -408,7 +621,7 @@ async function doLogin() {
     document.getElementById('topbar-user').textContent = data.username;
     document.getElementById('login-page').style.display = 'none';
     document.getElementById('app').style.display = 'flex';
-    loadAll();
+    await loadAll();
   } catch(e) {
     errEl.textContent = e.message;
     errEl.style.display = 'block';
@@ -417,299 +630,496 @@ async function doLogin() {
 
 function doLogout() {
   token = '';
-  alleArtikel = [];
   document.getElementById('login-page').style.display = 'flex';
   document.getElementById('app').style.display = 'none';
   document.getElementById('login-pass').value = '';
 }
 
-function authH() {
-  return {'Content-Type':'application/json', 'Authorization':'Bearer ' + token};
-}
+function authH() { return {'Content-Type':'application/json','Authorization':'Bearer '+token}; }
 
-// ── NAVIGATION ──────────────────────────────────────────
+// ── NAVIGATION ────────────────────────────────────────────
 function showPanel(name) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('panel-' + name).classList.add('active');
+  document.getElementById('panel-'+name).classList.add('active');
   const tabs = document.querySelectorAll('.nav-tab');
-  const idx = {dashboard:0, artikel:1, neu:2, plan:3, team:4};
-  if (idx[name] !== undefined) tabs[idx[name]].classList.add('active');
-  if (name === 'artikel') renderArtikelTabelle();
+  const idx = {dashboard:0,quartal:1,artikel:2,neu:3,magazin:4,team:5,mitarbeiter:6};
+  if (idx[name]!==undefined) tabs[idx[name]].classList.add('active');
+  if (name==='artikel') renderTabelle();
+  if (name==='quartal') renderQuartalPanel();
+  if (name==='magazin') renderMagazin();
+  if (name==='team') renderTeam();
+  if (name==='mitarbeiter') renderMaListe();
 }
 
-function showLang(lang) {
+function showLang(lang, el) {
   document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.lang-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('lang-' + lang).classList.add('active');
-  event.target.classList.add('active');
+  document.getElementById('lang-'+lang).classList.add('active');
+  el.classList.add('active');
 }
 
-// ── DATEN LADEN ─────────────────────────────────────────
+// ── DATEN LADEN ───────────────────────────────────────────
 async function loadAll() {
-  await loadArtikel();
-  renderDashboard();
-  renderPlan();
-  renderTeam();
-}
-
-async function loadArtikel() {
   try {
     const r = await fetch(API + '/admin/articles', {headers: authH()});
     alleArtikel = await r.json();
   } catch(e) { alleArtikel = []; }
+  renderDashboard();
+  renderQuartalKarten();
+  renderMagazin();
+  renderTeam();
+  renderMaListe();
 }
 
-// ── DASHBOARD ───────────────────────────────────────────
+// ── DASHBOARD ─────────────────────────────────────────────
 function renderDashboard() {
-  const gesamt  = alleArtikel.length;
-  const online  = alleArtikel.filter(a => a.published).length;
-  const entwurf = gesamt - online;
+  const pub = alleArtikel.filter(a=>a.published).length;
+  const rev = alleArtikel.filter(a=>!a.published && getRubrik(a)==='review').length;
+  const entwurf = alleArtikel.filter(a=>!a.published).length - rev;
 
-  document.getElementById('s-gesamt').textContent  = gesamt;
-  document.getElementById('s-online').textContent  = online;
+  document.getElementById('s-gesamt').textContent = alleArtikel.length;
+  document.getElementById('s-online').textContent = pub;
+  document.getElementById('s-review').textContent = rev;
   document.getElementById('s-entwurf').textContent = entwurf;
+  document.getElementById('p-entwurf').textContent = entwurf;
+  document.getElementById('p-review').textContent = rev;
+  document.getElementById('p-freigabe').textContent = alleArtikel.filter(a=>!a.published && a.category==='Freigabe').length;
+  document.getElementById('p-online').textContent = pub;
 
-  // Letzte 5 Artikel
+  // Neueste 5
   const el = document.getElementById('dash-artikel');
-  if (gesamt === 0) { el.innerHTML = '<div class="loading">Keine Artikel vorhanden</div>'; return; }
-  el.innerHTML = alleArtikel.slice(0,6).map(a => `
+  if (!alleArtikel.length) { el.innerHTML='<div class="loading">Keine Artikel</div>'; return; }
+  el.innerHTML = alleArtikel.slice(0,5).map(a => `
     <div class="artikel-item">
-      <div class="artikel-dot ${a.published ? 'dot-online' : 'dot-entwurf'}"></div>
+      <div class="artikel-dot ${a.published?'dot-online':'dot-entwurf'}"></div>
       <div class="artikel-info">
-        <div class="artikel-titel">${a.title || a.title_de || '(kein Titel)'}</div>
-        <div class="artikel-meta">${a.author || '–'} · ${a.category || '–'} · ${fmtDatum(a.created_at)}</div>
+        <div class="artikel-titel">${a.title||a.title_de||'–'}</div>
+        <div class="artikel-meta">${a.author||'–'} · ${a.category||'–'} · ${fmtDatum(a.created_at)}</div>
       </div>
-      <span class="badge ${a.published ? 'badge-online' : 'badge-entwurf'}">${a.published ? 'Online' : 'Entwurf'}</span>
+      <span class="badge badge-${a.published?'online':'entwurf'}">${a.published?'Online':'Entwurf'}</span>
     </div>
   `).join('');
 
-  // Kategorien
-  const katEl = document.getElementById('dash-kategorien');
-  const kats = {};
-  alleArtikel.forEach(a => { const k = a.category || 'Sonstige'; kats[k] = (kats[k]||0)+1; });
-  katEl.innerHTML = Object.entries(kats).map(([k,n]) => `
-    <div class="artikel-item">
-      <div class="artikel-dot dot-film"></div>
-      <div class="artikel-info">
-        <div class="artikel-titel">${k}</div>
-        <div class="artikel-meta">${n} Artikel</div>
-      </div>
-      <span class="badge badge-film">${n}</span>
+  // Aktuelles Quartal im Dashboard
+  const qEl = document.getElementById('dash-quartal');
+  const qArtikel = alleArtikel.filter(a => (a.author||'').includes('Q2') || true).slice(0,4);
+  const q = magazinAusgaben.find(m=>m.quartal===aktQuartal) || magazinAusgaben[1];
+  qEl.innerHTML = `
+    <div style="background:${q.farbe||'#1a1a2e'};color:#fff;padding:16px;margin-bottom:14px">
+      <div style="font-size:.65rem;letter-spacing:2px;opacity:.7">${q.quartal}</div>
+      <div style="font-size:1rem;font-weight:700;margin:4px 0">${q.name}</div>
+      <div style="font-size:.72rem;opacity:.8">${q.thema}</div>
     </div>
-  `).join('') || '<div class="loading">Keine Daten</div>';
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      ${['Artikel','Interview','Übersetzung','Filmvorstellung'].map(r => {
+        const n = alleArtikel.filter(a=>getRubrikFromTitle(a)===r).length;
+        return `<div style="background:var(--grau);padding:10px;text-align:center">
+          <div style="font-size:1.2rem;font-weight:700">${n}</div>
+          <div style="font-size:.6rem;color:#888;text-transform:uppercase;letter-spacing:1px">${r}</div>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
 }
 
-// ── ARTIKEL TABELLE ─────────────────────────────────────
-function renderArtikelTabelle() {
-  const filterKat = document.getElementById('filter-kat').value;
-  const filterPub = document.getElementById('filter-pub').value;
+// ── QUARTAL ───────────────────────────────────────────────
+const quartale = [
+  { id:'Q1-2026', nr:'Q1', name:'Januar – März', zeitraum:'Jan · Feb · Mär 2026', farbe:'#1a1a2e' },
+  { id:'Q2-2026', nr:'Q2', name:'April – Juni', zeitraum:'Apr · Mai · Jun 2026', farbe:'#C9A84C' },
+  { id:'Q3-2026', nr:'Q3', name:'Juli – September', zeitraum:'Jul · Aug · Sep 2026', farbe:'#0f6e56' },
+  { id:'Q4-2026', nr:'Q4', name:'Oktober – Dezember', zeitraum:'Okt · Nov · Dez 2026', farbe:'#8e44ad' },
+];
 
+function renderQuartalKarten() {
+  const grid = document.getElementById('quartal-grid');
+  if (!grid) return;
+  grid.innerHTML = quartale.map(q => {
+    const n = alleArtikel.length;
+    const ziel = 12;
+    const pct = Math.min(100, Math.round((n/ziel)*100));
+    return `
+      <div class="quartal-card ${aktQuartal===q.id?'active-q':''}" onclick="selectQuartal('${q.id}')">
+        <div class="quartal-nr" style="color:${q.farbe}">${q.nr} 2026</div>
+        <div class="quartal-name">${q.name}</div>
+        <div class="quartal-zeitraum">${q.zeitraum}</div>
+        <div class="quartal-count" style="color:${q.farbe}">${n}</div>
+        <div class="quartal-count-label">Beiträge geplant</div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar" style="width:${pct}%;background:${q.farbe}"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function selectQuartal(id) {
+  aktQuartal = id;
+  renderQuartalKarten();
+  renderQuartalPanel();
+}
+
+function renderQuartalPanel() {
+  const q = quartale.find(q=>q.id===aktQuartal);
+  document.getElementById('quartal-aktiv-title').textContent = `${q.nr} 2026 — ${q.name}`;
+
+  const rubriken = ['Artikel','Interview','Übersetzung','Filmvorstellung'];
+  rubriken.forEach(r => {
+    const n = alleArtikel.filter(a=>getRubrikFromTitle(a)===r).length;
+    const el = document.getElementById('rc-'+rubrikId(r));
+    if (el) el.textContent = n;
+  });
+  document.getElementById('rc-alle').textContent = alleArtikel.length;
+  renderQuartalTabelle();
+}
+
+function filterRubrik(r) {
+  aktRubrik = r;
+  document.querySelectorAll('.rubrik-card').forEach(c=>c.classList.remove('active-r'));
+  const id = r ? 'rb-'+rubrikId(r) : 'rb-alle';
+  document.getElementById(id)?.classList.add('active-r');
+  renderQuartalTabelle();
+}
+
+function renderQuartalTabelle() {
+  let liste = aktRubrik ? alleArtikel.filter(a=>getRubrikFromTitle(a)===aktRubrik) : alleArtikel;
+  const tbody = document.getElementById('quartal-tbody');
+  if (!liste.length) { tbody.innerHTML='<tr><td colspan="7" class="loading">Keine Beiträge gefunden</td></tr>'; return; }
+  tbody.innerHTML = liste.map(a => {
+    const r = getRubrikFromTitle(a);
+    const sprachen = getSprachen(a);
+    return `<tr>
+      <td>${a.id}</td>
+      <td><strong>${a.title||a.title_de||'–'}</strong></td>
+      <td><span class="badge badge-${rubrikClass(r)}">${r||'Artikel'}</span></td>
+      <td>${a.author||'–'}</td>
+      <td><span class="badge badge-${a.published?'online':'entwurf'}">${a.published?'Online':'Entwurf'}</span></td>
+      <td>${sprachen}</td>
+      <td><div style="display:flex;gap:4px">
+        <button class="btn-sm ${a.published?'':'success'}" onclick="togglePublish(${a.id},${!a.published})">${a.published?'Offline':'Online'}</button>
+        <button class="btn-sm danger" onclick="delArtikel(${a.id})">✕</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+// ── ALLE ARTIKEL TABELLE ──────────────────────────────────
+function renderTabelle() {
+  const fS = document.getElementById('f-status')?.value||'';
+  const fR = document.getElementById('f-rubrik')?.value||'';
+  const fK = document.getElementById('f-kat')?.value||'';
   let liste = alleArtikel;
-  if (filterKat) liste = liste.filter(a => a.category === filterKat);
-  if (filterPub !== '') liste = liste.filter(a => String(a.published) === filterPub);
+  if (fK) liste = liste.filter(a=>a.category===fK);
+  if (fR) liste = liste.filter(a=>getRubrikFromTitle(a)===fR);
+  if (fS==='online') liste = liste.filter(a=>a.published);
+  else if (fS==='entwurf') liste = liste.filter(a=>!a.published);
 
   const tbody = document.getElementById('artikel-tbody');
-  if (liste.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7" class="loading">Keine Artikel gefunden</td></tr>';
-    return;
-  }
-  tbody.innerHTML = liste.map(a => `
-    <tr>
+  if (!liste.length) { tbody.innerHTML='<tr><td colspan="8" class="loading">Keine Beiträge gefunden</td></tr>'; return; }
+  tbody.innerHTML = liste.map(a => {
+    const r = getRubrikFromTitle(a);
+    return `<tr>
       <td>${a.id}</td>
-      <td><strong>${a.title || a.title_de || '–'}</strong></td>
-      <td><span class="badge badge-${katClass(a.category)}">${a.category || '–'}</span></td>
-      <td>${a.author || '–'}</td>
-      <td><span class="badge ${a.published ? 'badge-online' : 'badge-entwurf'}">${a.published ? 'Online' : 'Entwurf'}</span></td>
+      <td><strong>${a.title||a.title_de||'–'}</strong></td>
+      <td><span class="badge badge-${rubrikClass(r)}">${r||'Artikel'}</span></td>
+      <td><span class="badge badge-film" style="font-size:.6rem">${a.category||'–'}</span></td>
+      <td>${a.author||'–'}</td>
+      <td><span class="badge badge-${a.published?'online':'entwurf'}">${a.published?'Online':'Entwurf'}</span></td>
       <td>${fmtDatum(a.created_at)}</td>
-      <td style="display:flex;gap:4px;flex-wrap:wrap">
-        <button class="btn-sm ${a.published ? '' : 'success'}" onclick="togglePublish(${a.id},${!a.published})">
-          ${a.published ? 'Offline' : 'Online'}
-        </button>
-        <button class="btn-sm danger" onclick="deleteArtikel(${a.id})">✕</button>
-      </td>
-    </tr>
-  `).join('');
+      <td><div style="display:flex;gap:4px">
+        <button class="btn-sm ${a.published?'':'success'}" onclick="togglePublish(${a.id},${!a.published})">${a.published?'Offline':'Online'}</button>
+        <button class="btn-sm danger" onclick="delArtikel(${a.id})">✕</button>
+      </div></td>
+    </tr>`;
+  }).join('');
 }
 
-async function togglePublish(id, pub) {
-  try {
-    await fetch(API + '/admin/articles/' + id, {
-      method: 'PUT',
-      headers: authH(),
-      body: JSON.stringify({published: pub})
-    });
-    await loadArtikel();
-    renderArtikelTabelle();
-    renderDashboard();
-  } catch(e) { alert('Fehler: ' + e.message); }
-}
-
-async function deleteArtikel(id) {
-  if (!confirm('Artikel wirklich löschen?')) return;
-  try {
-    await fetch(API + '/admin/articles/' + id, {method:'DELETE', headers: authH()});
-    await loadArtikel();
-    renderArtikelTabelle();
-    renderDashboard();
-  } catch(e) { alert('Fehler: ' + e.message); }
-}
-
-// ── NEUER ARTIKEL ───────────────────────────────────────
-async function createArtikel() {
-  const title_de = document.getElementById('neu-title-de').value.trim();
-  const content_de = document.getElementById('neu-content-de').value.trim();
-  if (!title_de) { alert('Bitte Titel auf Deutsch eingeben'); return; }
-  if (!content_de) { alert('Bitte Text auf Deutsch eingeben'); return; }
-
+// ── NEUER BEITRAG ─────────────────────────────────────────
+async function createBeitrag() {
+  const title_de = document.getElementById('t-de').value.trim();
+  const content_de = document.getElementById('c-de').value.trim();
+  const rubrik = document.getElementById('neu-rubrik').value;
+  const category = document.getElementById('neu-category').value;
   const statusEl = document.getElementById('form-status');
-  statusEl.textContent = 'Speichern…';
 
-  // Bild hochladen falls vorhanden
+  if (!title_de) { showErr('neu-error','Bitte Titel auf Deutsch eingeben'); return; }
+  if (!content_de) { showErr('neu-error','Bitte Text auf Deutsch eingeben'); return; }
+  if (!rubrik) { showErr('neu-error','Bitte Rubrik auswählen'); return; }
+  if (!category) { showErr('neu-error','Bitte Kategorie auswählen'); return; }
+
+  statusEl.textContent = 'Speichern…';
+  document.getElementById('neu-error').style.display = 'none';
+
   let image_url = '';
   const fotoInput = document.getElementById('neu-foto');
   if (fotoInput.files[0]) {
     try {
       const fd = new FormData();
       fd.append('file', fotoInput.files[0]);
-      const up = await fetch(API + '/admin/upload', {
-        method: 'POST',
-        headers: {'Authorization': 'Bearer ' + token},
-        body: fd
-      });
-      const upData = await up.json();
-      image_url = upData.url || '';
+      const up = await fetch(API+'/admin/upload', {method:'POST', headers:{'Authorization':'Bearer '+token}, body:fd});
+      const upD = await up.json();
+      image_url = upD.url||'';
       statusEl.textContent = 'Bild hochgeladen…';
     } catch(e) { statusEl.textContent = 'Bild-Upload fehlgeschlagen'; }
   }
 
   try {
-    const r = await fetch(API + '/admin/articles', {
-      method: 'POST',
-      headers: authH(),
+    const quartal = document.getElementById('neu-quartal').value;
+    const r = await fetch(API+'/admin/articles', {
+      method:'POST', headers: authH(),
       body: JSON.stringify({
-        title_de:    title_de,
-        title_kmj:   document.getElementById('neu-title-kmj').value,
-        title_sor:   document.getElementById('neu-title-sor').value,
-        title_en:    document.getElementById('neu-title-en').value,
-        content_de:  content_de,
-        content_kmj: document.getElementById('neu-content-kmj').value,
-        content_sor: document.getElementById('neu-content-sor').value,
-        content_en:  document.getElementById('neu-content-en').value,
-        category:    document.getElementById('neu-category').value,
-        author:      document.getElementById('neu-author').value || 'Redaktion FAK',
-        published:   document.getElementById('neu-published').value === 'true',
-        image_url:   image_url,
-        video_url:   ''
+        title_de: `[${rubrik}] ${title_de}`,
+        title_kmj: document.getElementById('t-kmj').value,
+        title_sor: document.getElementById('t-sor').value,
+        title_en: document.getElementById('t-en').value,
+        content_de,
+        content_kmj: document.getElementById('c-kmj').value,
+        content_sor: document.getElementById('c-sor').value,
+        content_en: document.getElementById('c-en').value,
+        category,
+        author: document.getElementById('neu-author').value || 'Redaktion FAK',
+        published: document.getElementById('neu-published').value === 'true',
+        image_url, video_url: ''
       })
     });
     if (!r.ok) { const e = await r.json(); throw new Error(e.detail); }
     statusEl.textContent = '';
-    document.getElementById('success-msg').style.display = 'block';
-    setTimeout(() => document.getElementById('success-msg').style.display='none', 3000);
+    document.getElementById('neu-success').style.display = 'block';
+    setTimeout(()=>document.getElementById('neu-success').style.display='none', 3000);
     resetForm();
-    await loadArtikel();
-    renderDashboard();
+    await loadAll();
   } catch(e) {
-    statusEl.textContent = '❌ ' + e.message;
+    statusEl.textContent = '';
+    showErr('neu-error', e.message);
   }
 }
 
 function resetForm() {
-  ['neu-title-de','neu-title-kmj','neu-title-sor','neu-title-en',
-   'neu-content-de','neu-content-kmj','neu-content-sor','neu-content-en',
-   'neu-author'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('neu-foto').value = '';
-  document.getElementById('form-status').textContent = '';
-  showLangDirect('de');
-}
-
-function showLangDirect(lang) {
-  document.querySelectorAll('.lang-tab').forEach((t,i) => t.classList.toggle('active', ['de','kmj','sor','en'][i]===lang));
-  document.querySelectorAll('.lang-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('lang-'+lang).classList.add('active');
-}
-
-// ── REDAKTIONSPLAN ──────────────────────────────────────
-function renderPlan() {
-  const tage = ['Mo 09.','Di 10.','Mi 11.','Do 12.','Fr 13.','Sa 14.','So 15.'];
-  const autoren = [...new Set(alleArtikel.map(a => a.author).filter(Boolean))].slice(0,5);
-  if (autoren.length === 0) autoren.push('Redaktion FAK');
-
-  const grid = document.getElementById('plan-grid');
-  let html = '<div class="plan-head"></div>';
-  tage.forEach(t => html += `<div class="plan-head">${t}</div>`);
-
-  autoren.forEach((autor, ai) => {
-    html += `<div class="plan-label">${autor.split(' ')[0]}</div>`;
-    for (let d = 0; d < 7; d++) {
-      const artikel = alleArtikel.filter(a => a.author === autor)[d % Math.max(1,alleArtikel.filter(a=>a.author===autor).length)];
-      if (artikel && d % 3 === ai % 3) {
-        const cls = katClass(artikel.category);
-        html += `<div class="plan-cell pc-${cls}">
-          <div class="pc-titel">${(artikel.title||artikel.title_de||'').substring(0,20)}${(artikel.title||artikel.title_de||'').length>20?'…':''}</div>
-          <div class="pc-autor">${artikel.category||''}</div>
-        </div>`;
-      } else {
-        html += `<div class="plan-cell leer"></div>`;
-      }
-    }
+  ['t-de','t-kmj','t-sor','t-en','c-de','c-kmj','c-sor','c-en',
+   'neu-author','form-status'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
   });
-  grid.innerHTML = html;
+  document.getElementById('neu-foto').value = '';
+  document.getElementById('neu-rubrik').value = '';
+  document.getElementById('neu-category').value = '';
 }
 
-// ── TEAM ────────────────────────────────────────────────
+// ── MAGAZIN ───────────────────────────────────────────────
+function renderMagazin() {
+  const grid = document.getElementById('magazin-grid');
+  const farben = { 'veröffentlicht':'#1a1a2e', 'in Planung':'#C9A84C', 'geplant':'#0f6e56' };
+  grid.innerHTML = magazinAusgaben.map(m => `
+    <div class="magazin-card">
+      <div class="magazin-cover" style="background:${m.farbe||farben[m.status]||'#333'}">
+        <div>
+          <div style="font-size:.65rem;letter-spacing:2px;opacity:.7;margin-bottom:6px">${m.quartal}</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1rem">${m.name}</div>
+          <div style="font-size:.72rem;opacity:.8;margin-top:6px">${m.thema}</div>
+        </div>
+      </div>
+      <div class="magazin-info">
+        <div class="magazin-titel">${m.name}</div>
+        <div class="magazin-meta">Erscheint: ${fmtDatum(m.datum)}</div>
+        <span class="magazin-status" style="background:${m.status==='veröffentlicht'?'#eafaf1':m.status==='in Planung'?'#fff3cd':'#f0f0f0'};color:${m.status==='veröffentlicht'?'#27ae60':m.status==='in Planung'?'#856404':'#555'}">${m.status}</span>
+        <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap">
+          <button class="btn-sm" onclick="showQuartalVon('${m.quartal}')">Artikel ansehen</button>
+          ${m.status==='in Planung'?`<button class="btn-sm gold" onclick="veroeffentlicheMagazin(${m.id})">Als fertig markieren</button>`:''}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function showQuartalVon(q) {
+  aktQuartal = q;
+  showPanel('quartal');
+  renderQuartalKarten();
+  renderQuartalPanel();
+}
+
+function veroeffentlicheMagazin(id) {
+  magazinAusgaben = magazinAusgaben.map(m => m.id===id ? {...m, status:'veröffentlicht'} : m);
+  localStorage.setItem('fak_magazin', JSON.stringify(magazinAusgaben));
+  renderMagazin();
+}
+
+function openMagazinModal() {
+  document.getElementById('magazin-modal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('magazin-modal').classList.remove('open');
+}
+
+function saveMagazin() {
+  const name = document.getElementById('m-name').value.trim();
+  const quartal = document.getElementById('m-quartal').value;
+  const datum = document.getElementById('m-datum').value;
+  const thema = document.getElementById('m-thema').value.trim();
+  if (!name) { alert('Bitte Namen eingeben'); return; }
+  const farben = {'Q1-2026':'#1a1a2e','Q2-2026':'#C9A84C','Q3-2026':'#0f6e56','Q4-2026':'#8e44ad'};
+  magazinAusgaben.push({
+    id: Date.now(), name, quartal, datum, thema,
+    status:'in Planung', farbe: farben[quartal]||'#333'
+  });
+  localStorage.setItem('fak_magazin', JSON.stringify(magazinAusgaben));
+  closeModal();
+  renderMagazin();
+  ['m-name','m-datum','m-thema'].forEach(id => document.getElementById(id).value='');
+}
+
+// ── TEAM ──────────────────────────────────────────────────
 function renderTeam() {
   const autoren = {};
   alleArtikel.forEach(a => {
-    const n = a.author || 'Unbekannt';
+    const n = a.author||'Unbekannt';
     if (!autoren[n]) autoren[n] = {online:0, entwurf:0};
     if (a.published) autoren[n].online++;
     else autoren[n].entwurf++;
   });
 
+  // Mitarbeiterinnen aus localStorage
   const grid = document.getElementById('team-grid');
-  if (Object.keys(autoren).length === 0) {
-    grid.innerHTML = '<div class="loading" style="grid-column:1/-1">Keine Autoren-Daten vorhanden</div>';
-    return;
-  }
+  const alle = [...mitarbeiterinnen];
+  Object.keys(autoren).forEach(n => {
+    if (!alle.find(m=>m.name===n)) alle.push({id:Date.now()+Math.random(), name:n, username:n, rolle:'autorin'});
+  });
 
-  grid.innerHTML = Object.entries(autoren).map(([name, stats]) => {
+  const farben = ['#1a1a2e','#C9A84C','#0f6e56','#8e44ad','#2980b9','#c0392b'];
+  grid.innerHTML = alle.map((m,i) => {
+    const stats = autoren[m.name] || {online:0, entwurf:0};
     const gesamt = stats.online + stats.entwurf;
-    const load   = Math.min(100, Math.round((gesamt / Math.max(1, alleArtikel.length)) * 100 * Object.keys(autoren).length));
-    const farbe  = load > 70 ? '#c0392b' : load > 40 ? '#e67e22' : '#27ae60';
+    const load = Math.min(100, gesamt * 20);
+    const farbe = load>70?'#c0392b':load>40?'#e67e22':'#27ae60';
     return `
       <div class="team-card">
-        <div class="team-name">${name}</div>
-        <div class="team-role">Autorin / Redakteurin</div>
+        <div class="team-avatar" style="background:${farben[i%farben.length]}">${initialen(m.name)}</div>
+        <div class="team-name">${m.name}</div>
+        <div><span class="team-role-badge role-${m.rolle||'autorin'}">${rolleLabel(m.rolle)}</span></div>
         <div class="team-stats">
-          <div class="team-stat">
-            <div class="team-stat-val">${stats.entwurf}</div>
-            <div class="team-stat-label">In Arbeit</div>
-          </div>
-          <div class="team-stat">
-            <div class="team-stat-val">${stats.online}</div>
-            <div class="team-stat-label">Veröffentlicht</div>
-          </div>
+          <div class="team-stat"><div class="team-stat-val">${stats.entwurf}</div><div class="team-stat-label">In Arbeit</div></div>
+          <div class="team-stat"><div class="team-stat-val">${stats.online}</div><div class="team-stat-label">Online</div></div>
         </div>
-        <div class="workload-bar-wrap">
-          <div class="workload-bar" style="width:${load}%;background:${farbe}"></div>
+        <div style="height:3px;background:#e0e0e0;margin-top:12px">
+          <div style="height:3px;width:${load}%;background:${farbe}"></div>
         </div>
-        <div class="workload-label"><span>Auslastung</span><span>${load}%</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:.6rem;color:#aaa;margin-top:3px">
+          <span>Auslastung</span><span>${load}%</span>
+        </div>
       </div>
     `;
-  }).join('');
+  }).join('') || '<div class="loading">Keine Team-Daten</div>';
 }
 
-// ── HILFSFUNKTIONEN ─────────────────────────────────────
+// ── MITARBEITER VERWALTUNG ────────────────────────────────
+function addMitarbeiterin() {
+  const name = document.getElementById('ma-name').value.trim();
+  const username = document.getElementById('ma-username').value.trim();
+  const email = document.getElementById('ma-email').value.trim();
+  const passwort = document.getElementById('ma-passwort').value;
+  const rolle = document.getElementById('ma-rolle').value;
+  const notiz = document.getElementById('ma-notiz').value.trim();
+
+  if (!name||!username||!email||!passwort) { showErr('ma-error','Bitte alle Pflichtfelder ausfüllen'); return; }
+  if (passwort.length < 8) { showErr('ma-error','Passwort muss mindestens 8 Zeichen haben'); return; }
+  if (mitarbeiterinnen.find(m=>m.username===username)) { showErr('ma-error','Benutzername bereits vergeben'); return; }
+
+  mitarbeiterinnen.push({ id:Date.now(), name, username, email, rolle, notiz });
+  localStorage.setItem('fak_team', JSON.stringify(mitarbeiterinnen));
+
+  document.getElementById('ma-success').style.display = 'block';
+  setTimeout(()=>document.getElementById('ma-success').style.display='none', 3000);
+  document.getElementById('ma-error').style.display = 'none';
+  ['ma-name','ma-username','ma-email','ma-passwort','ma-notiz'].forEach(id=>document.getElementById(id).value='');
+
+  renderMaListe();
+  renderTeam();
+
+  // Hinweis: Auf dem Server anlegen
+  const befehl = `PGPASSWORD=fak2026! python3 << 'PY'\nimport psycopg2, bcrypt\nhashed = bcrypt.hashpw("${passwort}".encode(), bcrypt.gensalt(12)).decode()\nconn = psycopg2.connect(host='localhost', database='fak_db', user='fak_user', password='fak2026!')\ncur = conn.cursor()\ncur.execute("INSERT INTO users (username, email, password_hash, role) VALUES (%s, %s, %s, %s) ON CONFLICT (username) DO NOTHING", ("${username}", "${email}", hashed, "${rolle}"))\nconn.commit()\nprint("Fertig!")\nconn.close()\nPY`;
+  console.log('Server-Befehl für ' + username + ':\n' + befehl);
+}
+
+function renderMaListe() {
+  const el = document.getElementById('ma-liste');
+  const farben = { admin:'#1a1a2e', chefredaktion:'#C9A84C', redakteurin:'#2980b9', autorin:'#0f6e56', gastautorin:'#8e44ad' };
+  if (!mitarbeiterinnen.length) { el.innerHTML='<div class="loading">Keine Einträge</div>'; return; }
+  el.innerHTML = mitarbeiterinnen.map(m => `
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f0f0f0">
+      <div style="width:36px;height:36px;border-radius:50%;background:${farben[m.rolle]||'#555'};display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;flex-shrink:0">${initialen(m.name)}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:.82rem;font-weight:600">${m.name}</div>
+        <div style="font-size:.68rem;color:#888">${m.email||m.username}</div>
+        ${m.notiz?`<div style="font-size:.65rem;color:#aaa;margin-top:2px">${m.notiz}</div>`:''}
+      </div>
+      <span class="team-role-badge role-${m.rolle}">${rolleLabel(m.rolle)}</span>
+      <button class="btn-sm danger" onclick="removeMa(${m.id})" style="flex-shrink:0">✕</button>
+    </div>
+  `).join('');
+}
+
+function removeMa(id) {
+  if (!confirm('Mitarbeiterin wirklich entfernen?')) return;
+  mitarbeiterinnen = mitarbeiterinnen.filter(m=>m.id!==id);
+  localStorage.setItem('fak_team', JSON.stringify(mitarbeiterinnen));
+  renderMaListe();
+  renderTeam();
+}
+
+// ── API AKTIONEN ──────────────────────────────────────────
+async function togglePublish(id, pub) {
+  try {
+    await fetch(API+'/admin/articles/'+id, {method:'PUT', headers:authH(), body:JSON.stringify({published:pub})});
+    await loadAll();
+    renderTabelle();
+    renderQuartalTabelle();
+  } catch(e) { alert('Fehler: '+e.message); }
+}
+
+async function delArtikel(id) {
+  if (!confirm('Beitrag wirklich löschen?')) return;
+  try {
+    await fetch(API+'/admin/articles/'+id, {method:'DELETE', headers:authH()});
+    await loadAll();
+    renderTabelle();
+    renderQuartalTabelle();
+  } catch(e) { alert('Fehler: '+e.message); }
+}
+
+// ── HILFSFUNKTIONEN ───────────────────────────────────────
+function getRubrikFromTitle(a) {
+  const t = a.title||a.title_de||'';
+  if (t.startsWith('[Interview]')) return 'Interview';
+  if (t.startsWith('[Übersetzung]')) return 'Übersetzung';
+  if (t.startsWith('[Filmvorstellung]')) return 'Filmvorstellung';
+  if (t.startsWith('[Artikel]')) return 'Artikel';
+  return 'Artikel';
+}
+function getRubrik(a) { return a.published ? 'online' : 'entwurf'; }
+function rubrikId(r) { return {Artikel:'artikel',Interview:'interview',Übersetzung:'uebersetzung',Filmvorstellung:'film'}[r]||'artikel'; }
+function rubrikClass(r) { return {Artikel:'artikel',Interview:'interview',Übersetzung:'uebersetzung',Filmvorstellung:'film'}[r]||'artikel'; }
+function getSprachen(a) {
+  const s = [];
+  if (a.title_de||a.content_de) s.push('🇩🇪');
+  if (a.title_kmj||a.content_kmj) s.push('KMJ');
+  if (a.title_sor||a.content_sor) s.push('SOR');
+  if (a.title_en||a.content_en) s.push('🇬🇧');
+  return s.join(' ') || '🇩🇪';
+}
 function fmtDatum(d) {
   if (!d) return '–';
-  return new Date(d).toLocaleDateString('de-DE', {day:'2-digit', month:'2-digit', year:'numeric'});
+  return new Date(d).toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'});
 }
-
-function katClass(kat) {
-  const m = {Film:'film', Philosophie:'phil', Fotografie:'foto', Magazin:'mag'};
-  return m[kat] || 'mag';
+function initialen(name) {
+  return name.split(' ').map(n=>n[0]).slice(0,2).join('').toUpperCase();
+}
+function rolleLabel(r) {
+  return {admin:'👑 Admin',chefredaktion:'✍️ Chefredaktion',redakteurin:'📝 Redakteurin',autorin:'🖊️ Autorin',gastautorin:'💫 Gastbeiträgerin'}[r]||r;
+}
+function showErr(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = '❌ '+msg;
+  el.style.display='block';
 }
 </script>
 </body>
