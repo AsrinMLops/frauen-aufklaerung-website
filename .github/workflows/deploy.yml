@@ -1,30 +1,28 @@
-name: Build & Push Website
+name: Deploy FAK Website
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Code holen
-        uses: actions/checkout@v3
+      - name: Code auschecken
+        uses: actions/checkout@v4
 
-      - name: Docker Hub Login
-        uses: docker/login-action@v3
+      - name: Auf EC2 deployen
+        uses: appleboy/ssh-action@v1.0.0
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Buildx einrichten
-        uses: docker/setup-buildx-action@v3
-
-      - name: Image bauen und pushen
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          platforms: linux/amd64
-          push: true
-          tags: aske84/frauen-website:latest
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/frauen-aufklaerung-website
+            git pull origin main
+            docker cp redaktion.html frauen-website:/usr/share/nginx/html/redaktion.html
+            docker cp admin.html frauen-website:/usr/share/nginx/html/admin.html
+            docker cp index.html frauen-website:/usr/share/nginx/html/index.html
+            docker cp magazin.html frauen-website:/usr/share/nginx/html/magazin.html
+            docker exec frauen-website nginx -s reload
+            echo "Deploy erfolgreich: $(date)"
