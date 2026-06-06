@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redaktion – FAK Magazin</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:   #C9A84C;
+  --dunkel: #1a1a2e;
+  --grau:   #f4f4f0;
+  --weiss:  #ffffff;
+  --rot:    #c0392b;
+  --gruen:  #27ae60;
+  --orange: #e67e22;
+  --blau:   #2980b9;
+  --lila:   #8e44ad;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Montserrat', sans-serif; background: var(--grau); color: #333; min-height: 100vh; }
+
+/* ── LOGIN ── */
+#login-page {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh; background: var(--dunkel);
+}
+.login-box {
+  background: #fff; padding: 48px; width: 380px;
+  border-top: 4px solid var(--gold);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.login-title { text-align:center; font-size:1.1rem; font-weight:700; color:var(--dunkel); margin-bottom:6px; }
+.login-sub   { text-align:center; font-size:0.72rem; color:#888; margin-bottom:32px; letter-spacing:1px; text-transform:uppercase; }
+.form-group  { margin-bottom:18px; }
+.form-group label { display:block; font-size:0.68rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:#666; margin-bottom:6px; }
+.form-group input { width:100%; padding:12px 14px; border:1px solid #ddd; font-family:'Montserrat',sans-serif; font-size:0.88rem; outline:none; transition:border 0.2s; }
+.form-group input:focus { border-color:var(--gold); }
+.btn-login { width:100%; padding:13px; background:var(--dunkel); color:#fff; border:none; font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.78rem; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:background 0.2s; }
+.btn-login:hover { background:var(--gold); }
+.login-error { color:var(--rot); font-size:0.78rem; text-align:center; margin-top:12px; display:none; }
+
+/* ── LAYOUT ── */
+#app { display:none; flex-direction:column; min-height:100vh; }
+
+/* ── TOPBAR ── */
+.topbar {
+  background:var(--dunkel); color:#fff; height:56px;
+  display:flex; align-items:center; padding:0 24px; gap:16px;
+  position:sticky; top:0; z-index:100;
+  border-bottom:2px solid var(--gold);
+}
+.topbar-logo { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--gold); }
+.topbar-sub  { font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:#888; margin-left:4px; }
+.topbar-spacer { flex:1; }
+.topbar-user { font-size:0.72rem; color:#aaa; }
+.btn-logout  { padding:6px 14px; background:transparent; border:1px solid #444; color:#aaa; font-size:0.65rem; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; font-family:'Montserrat',sans-serif; }
+.btn-logout:hover { border-color:var(--gold); color:var(--gold); }
+
+/* ── NAV TABS ── */
+.nav-tabs { background:#fff; border-bottom:1px solid #e0e0e0; display:flex; padding:0 24px; }
+.nav-tab  { padding:14px 20px; font-size:0.72rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; color:#888; border-bottom:3px solid transparent; transition:all 0.2s; }
+.nav-tab:hover  { color:var(--dunkel); }
+.nav-tab.active { color:var(--dunkel); border-bottom-color:var(--gold); }
+
+/* ── MAIN CONTENT ── */
+.main { flex:1; padding:24px; max-width:1400px; margin:0 auto; width:100%; }
+
+/* ── PANELS ── */
+.panel { display:none; }
+.panel.active { display:block; }
+
+/* ── STATS ── */
+.stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
+.stat-card { background:#fff; padding:20px; border-top:3px solid var(--gold); }
+.stat-val   { font-size:2rem; font-weight:700; color:var(--dunkel); }
+.stat-label { font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:#888; margin-top:4px; }
+.stat-sub   { font-size:0.72rem; color:#aaa; margin-top:4px; }
+
+/* ── ZWEI-SPALTEN ── */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+/* ── KARTE ── */
+.card { background:#fff; padding:20px; margin-bottom:16px; }
+.card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; }
+.card-title  { font-size:0.78rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--dunkel); }
+
+/* ── ARTIKEL LISTE ── */
+.artikel-item { display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-bottom:1px solid #f0f0f0; }
+.artikel-item:last-child { border-bottom:none; }
+.artikel-dot  { width:8px; height:8px; border-radius:50%; margin-top:5px; flex-shrink:0; }
+.dot-entwurf  { background:#bbb; }
+.dot-review   { background:var(--orange); }
+.dot-online   { background:var(--gruen); }
+.dot-film     { background:var(--lila); }
+.artikel-info { flex:1; min-width:0; }
+.artikel-titel { font-size:0.82rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.artikel-meta  { font-size:0.7rem; color:#888; margin-top:2px; }
+.badge { display:inline-block; padding:2px 8px; font-size:0.6rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+.badge-film     { background:#f0ebf9; color:var(--lila); }
+.badge-phil     { background:#eaf4fb; color:var(--blau); }
+.badge-foto     { background:#fef9e7; color:var(--orange); }
+.badge-mag      { background:#eafaf1; color:var(--gruen); }
+.badge-online   { background:#eafaf1; color:var(--gruen); }
+.badge-entwurf  { background:#f5f5f5; color:#888; }
+.badge-review   { background:#fef5e7; color:var(--orange); }
+
+/* ── ARTIKEL TABELLE ── */
+.artikel-table { width:100%; border-collapse:collapse; }
+.artikel-table th { background:var(--dunkel); color:#fff; padding:10px 14px; text-align:left; font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; }
+.artikel-table td { padding:10px 14px; border-bottom:1px solid #f0f0f0; font-size:0.82rem; }
+.artikel-table tr:hover td { background:#fafafa; }
+.btn-sm { padding:4px 10px; font-size:0.65rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; border:1px solid #ddd; background:#fff; font-family:'Montserrat',sans-serif; transition:all 0.15s; }
+.btn-sm:hover { background:var(--dunkel); color:#fff; border-color:var(--dunkel); }
+.btn-sm.danger:hover { background:var(--rot); border-color:var(--rot); color:#fff; }
+.btn-sm.success { background:var(--gruen); color:#fff; border-color:var(--gruen); }
+
+/* ── NEUER ARTIKEL FORM ── */
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.form-full  { grid-column:1/-1; }
+.form-group-inner { margin-bottom:0; }
+label.field-label { display:block; font-size:0.65rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:#666; margin-bottom:6px; }
+input.field, select.field, textarea.field {
+  width:100%; padding:10px 12px; border:1px solid #ddd;
+  font-family:'Montserrat',sans-serif; font-size:0.85rem; outline:none; transition:border 0.2s;
+}
+input.field:focus, select.field:focus, textarea.field:focus { border-color:var(--gold); }
+textarea.field { height:160px; resize:vertical; }
+.lang-tabs { display:flex; gap:0; margin-bottom:16px; }
+.lang-tab  { padding:8px 16px; font-size:0.65rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; background:#f5f5f5; border:1px solid #ddd; color:#666; transition:all 0.15s; }
+.lang-tab.active { background:var(--dunkel); color:#fff; border-color:var(--dunkel); }
+.lang-panel { display:none; }
+.lang-panel.active { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.btn-primary { padding:12px 28px; background:var(--dunkel); color:#fff; border:none; font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:background 0.2s; }
+.btn-primary:hover { background:var(--gold); }
+.btn-secondary { padding:12px 28px; background:#fff; color:var(--dunkel); border:2px solid var(--dunkel); font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; cursor:pointer; margin-left:8px; }
+.success-msg { display:none; padding:12px 16px; background:#eafaf1; border-left:4px solid var(--gruen); color:var(--gruen); font-size:0.8rem; margin-bottom:16px; }
+
+/* ── REDAKTIONSPLAN ── */
+.plan-grid { display:grid; grid-template-columns:90px repeat(7,1fr); gap:3px; }
+.plan-head  { font-size:0.62rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; text-align:center; padding:8px 4px; color:#888; }
+.plan-label { font-size:0.7rem; color:#666; padding:10px 4px; display:flex; align-items:center; font-weight:600; }
+.plan-cell  { padding:6px; min-height:44px; border:1px solid #e8e8e8; background:#fff; font-size:0.68rem; cursor:pointer; transition:background 0.15s; }
+.plan-cell:hover { border-color:var(--gold); }
+.plan-cell.leer { background:#fafafa; }
+.pc-film { background:#f0ebf9; border-color:#c9a8e8; }
+.pc-phil { background:#eaf4fb; border-color:#85c1e9; }
+.pc-foto { background:#fef9e7; border-color:#f7dc6f; }
+.pc-mag  { background:#eafaf1; border-color:#82e0aa; }
+.pc-titel { font-weight:600; }
+.pc-autor { color:#888; margin-top:2px; }
+
+/* ── TEAM ── */
+.team-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.team-card { background:#fff; padding:20px; border-top:3px solid transparent; transition:border-color 0.2s; }
+.team-card:hover { border-top-color:var(--gold); }
+.team-name { font-size:0.88rem; font-weight:700; color:var(--dunkel); }
+.team-role { font-size:0.68rem; color:#888; letter-spacing:1px; text-transform:uppercase; margin-top:2px; margin-bottom:14px; }
+.team-stats { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.team-stat  { background:var(--grau); padding:10px; }
+.team-stat-val   { font-size:1.3rem; font-weight:700; color:var(--dunkel); }
+.team-stat-label { font-size:0.6rem; color:#888; letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+.workload-bar-wrap { height:3px; background:#e0e0e0; margin-top:12px; }
+.workload-bar { height:3px; transition:width 0.4s; }
+.workload-label { display:flex; justify-content:space-between; font-size:0.62rem; color:#aaa; margin-top:4px; }
+
+/* ── LOADING ── */
+.loading { text-align:center; padding:40px; color:#aaa; font-size:0.8rem; letter-spacing:1px; text-transform:uppercase; }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-page">
+  <div class="login-box">
+    <div class="login-title">Redaktion</div>
+    <div class="login-sub">Frauen-Aufklärungsbewegung Kurdistans e.V.</div>
+    <div class="form-group">
+      <label>Benutzername</label>
+      <input type="text" id="login-user" placeholder="admin" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <div class="form-group">
+      <label>Passwort</label>
+      <input type="password" id="login-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn-login" onclick="doLogin()">Einloggen</button>
+    <div class="login-error" id="login-error">Falscher Benutzername oder Passwort</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <span class="topbar-logo">FAK</span>
+    <span class="topbar-sub">Redaktion</span>
+    <div class="topbar-spacer"></div>
+    <span class="topbar-user" id="topbar-user"></span>
+    <button class="btn-logout" onclick="doLogout()">Abmelden</button>
+  </div>
+
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="showPanel('dashboard')">Dashboard</div>
+    <div class="nav-tab" onclick="showPanel('artikel')">Alle Artikel</div>
+    <div class="nav-tab" onclick="showPanel('neu')">Neuer Artikel</div>
+    <div class="nav-tab" onclick="showPanel('plan')">Redaktionsplan</div>
+    <div class="nav-tab" onclick="showPanel('team')">Team</div>
+  </div>
+
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div class="panel active" id="panel-dashboard">
+      <div class="stats-row" id="stats-row">
+        <div class="stat-card"><div class="stat-val" id="s-gesamt">–</div><div class="stat-label">Artikel gesamt</div></div>
+        <div class="stat-card"><div class="stat-val" id="s-online">–</div><div class="stat-label">Veröffentlicht</div></div>
+        <div class="stat-card"><div class="stat-val" id="s-entwurf">–</div><div class="stat-label">Entwürfe</div></div>
+        <div class="stat-card"><div class="stat-val">4</div><div class="stat-label">Kategorien</div></div>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Aktuelle Artikel</div>
+            <span style="font-size:0.7rem;color:#888;cursor:pointer" onclick="showPanel('artikel')">Alle anzeigen →</span>
+          </div>
+          <div id="dash-artikel"><div class="loading">Laden…</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Kategorien</div>
+          </div>
+          <div id="dash-kategorien"><div class="loading">Laden…</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALLE ARTIKEL -->
+    <div class="panel" id="panel-artikel">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Alle Artikel</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <select id="filter-kat" class="field" style="width:auto;padding:6px 10px;font-size:0.75rem" onchange="renderArtikelTabelle()">
+              <option value="">Alle Kategorien</option>
+              <option>Film</option>
+              <option>Philosophie</option>
+              <option>Fotografie</option>
+              <option>Magazin</option>
+            </select>
+            <select id="filter-pub" class="field" style="width:auto;padding:6px 10px;font-size:0.75rem" onchange="renderArtikelTabelle()">
+              <option value="">Alle Status</option>
+              <option value="true">Online</option>
+              <option value="false">Entwurf</option>
+            </select>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="artikel-table">
+            <thead>
+              <tr>
+                <th>#</th><th>Titel</th><th>Kategorie</th><th>Autor</th><th>Status</th><th>Datum</th><th>Aktionen</th>
+              </tr>
+            </thead>
+            <tbody id="artikel-tbody"><tr><td colspan="7" class="loading">Laden…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEUER ARTIKEL -->
+    <div class="panel" id="panel-neu">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Neuer Artikel</div>
+        </div>
+        <div class="success-msg" id="success-msg">✅ Artikel erfolgreich erstellt!</div>
+
+        <div class="form-grid" style="margin-bottom:16px">
+          <div>
+            <label class="field-label">Kategorie</label>
+            <select id="neu-category" class="field">
+              <option>Film</option>
+              <option>Philosophie</option>
+              <option>Fotografie</option>
+              <option>Magazin</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label">Autor</label>
+            <input type="text" id="neu-author" class="field" placeholder="Name der Autorin">
+          </div>
+          <div>
+            <label class="field-label">Veröffentlichen</label>
+            <select id="neu-published" class="field">
+              <option value="true">Ja – sofort veröffentlichen</option>
+              <option value="false">Nein – als Entwurf speichern</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label">Foto hochladen</label>
+            <input type="file" id="neu-foto" class="field" accept="image/jpeg,image/png,image/webp">
+          </div>
+        </div>
+
+        <div class="lang-tabs">
+          <div class="lang-tab active" onclick="showLang('de')">🇩🇪 Deutsch</div>
+          <div class="lang-tab" onclick="showLang('kmj')">Kurmanji</div>
+          <div class="lang-tab" onclick="showLang('sor')">Sorani</div>
+          <div class="lang-tab" onclick="showLang('en')">🇬🇧 English</div>
+        </div>
+
+        <div class="lang-panel active" id="lang-de">
+          <div>
+            <label class="field-label">Titel Deutsch *</label>
+            <input type="text" id="neu-title-de" class="field" placeholder="Titel auf Deutsch">
+          </div>
+          <div></div>
+          <div class="form-full">
+            <label class="field-label">Text Deutsch *</label>
+            <textarea id="neu-content-de" class="field" placeholder="Artikeltext auf Deutsch…"></textarea>
+          </div>
+        </div>
+
+        <div class="lang-panel" id="lang-kmj">
+          <div>
+            <label class="field-label">Titel Kurmanji</label>
+            <input type="text" id="neu-title-kmj" class="field" placeholder="Sernavê bi Kurmancî">
+          </div>
+          <div></div>
+          <div class="form-full">
+            <label class="field-label">Text Kurmanji</label>
+            <textarea id="neu-content-kmj" class="field" placeholder="Nivîsa gotarê bi Kurmancî…"></textarea>
+          </div>
+        </div>
+
+        <div class="lang-panel" id="lang-sor">
+          <div>
+            <label class="field-label">Titel Sorani</label>
+            <input type="text" id="neu-title-sor" class="field" placeholder="ناونیشان بە سۆرانی" dir="rtl">
+          </div>
+          <div></div>
+          <div class="form-full">
+            <label class="field-label">Text Sorani</label>
+            <textarea id="neu-content-sor" class="field" placeholder="دەقی بابەت بە سۆرانی…" dir="rtl"></textarea>
+          </div>
+        </div>
+
+        <div class="lang-panel" id="lang-en">
+          <div>
+            <label class="field-label">Title English</label>
+            <input type="text" id="neu-title-en" class="field" placeholder="Title in English">
+          </div>
+          <div></div>
+          <div class="form-full">
+            <label class="field-label">Text English</label>
+            <textarea id="neu-content-en" class="field" placeholder="Article text in English…"></textarea>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;display:flex;align-items:center;gap:12px">
+          <button class="btn-primary" onclick="createArtikel()">💾 Artikel speichern</button>
+          <button class="btn-secondary" onclick="resetForm()">Abbrechen</button>
+          <span id="form-status" style="font-size:0.75rem;color:#888"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- REDAKTIONSPLAN -->
+    <div class="panel" id="panel-plan">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Redaktionsplan – KW 24, Juni 2026</div>
+        </div>
+        <div class="plan-grid" id="plan-grid"></div>
+      </div>
+    </div>
+
+    <!-- TEAM -->
+    <div class="panel" id="panel-team">
+      <div class="card-header" style="margin-bottom:16px">
+        <div class="card-title">Team-Übersicht</div>
+      </div>
+      <div class="team-grid" id="team-grid"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const API = '/api';
+let token = '';
+let alleArtikel = [];
+
+// ── AUTH ────────────────────────────────────────────────
+async function doLogin() {
+  const user = document.getElementById('login-user').value.trim();
+  const pass = document.getElementById('login-pass').value;
+  const errEl = document.getElementById('login-error');
+  errEl.style.display = 'none';
+  try {
+    const r = await fetch(API + '/login', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({username: user, password: pass})
+    });
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.detail || 'Fehler');
+    token = data.token;
+    document.getElementById('topbar-user').textContent = data.username;
+    document.getElementById('login-page').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    loadAll();
+  } catch(e) {
+    errEl.textContent = e.message;
+    errEl.style.display = 'block';
+  }
+}
+
+function doLogout() {
+  token = '';
+  alleArtikel = [];
+  document.getElementById('login-page').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-pass').value = '';
+}
+
+function authH() {
+  return {'Content-Type':'application/json', 'Authorization':'Bearer ' + token};
+}
+
+// ── NAVIGATION ──────────────────────────────────────────
+function showPanel(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  const tabs = document.querySelectorAll('.nav-tab');
+  const idx = {dashboard:0, artikel:1, neu:2, plan:3, team:4};
+  if (idx[name] !== undefined) tabs[idx[name]].classList.add('active');
+  if (name === 'artikel') renderArtikelTabelle();
+}
+
+function showLang(lang) {
+  document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.lang-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('lang-' + lang).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── DATEN LADEN ─────────────────────────────────────────
+async function loadAll() {
+  await loadArtikel();
+  renderDashboard();
+  renderPlan();
+  renderTeam();
+}
+
+async function loadArtikel() {
+  try {
+    const r = await fetch(API + '/admin/articles', {headers: authH()});
+    alleArtikel = await r.json();
+  } catch(e) { alleArtikel = []; }
+}
+
+// ── DASHBOARD ───────────────────────────────────────────
+function renderDashboard() {
+  const gesamt  = alleArtikel.length;
+  const online  = alleArtikel.filter(a => a.published).length;
+  const entwurf = gesamt - online;
+
+  document.getElementById('s-gesamt').textContent  = gesamt;
+  document.getElementById('s-online').textContent  = online;
+  document.getElementById('s-entwurf').textContent = entwurf;
+
+  // Letzte 5 Artikel
+  const el = document.getElementById('dash-artikel');
+  if (gesamt === 0) { el.innerHTML = '<div class="loading">Keine Artikel vorhanden</div>'; return; }
+  el.innerHTML = alleArtikel.slice(0,6).map(a => `
+    <div class="artikel-item">
+      <div class="artikel-dot ${a.published ? 'dot-online' : 'dot-entwurf'}"></div>
+      <div class="artikel-info">
+        <div class="artikel-titel">${a.title || a.title_de || '(kein Titel)'}</div>
+        <div class="artikel-meta">${a.author || '–'} · ${a.category || '–'} · ${fmtDatum(a.created_at)}</div>
+      </div>
+      <span class="badge ${a.published ? 'badge-online' : 'badge-entwurf'}">${a.published ? 'Online' : 'Entwurf'}</span>
+    </div>
+  `).join('');
+
+  // Kategorien
+  const katEl = document.getElementById('dash-kategorien');
+  const kats = {};
+  alleArtikel.forEach(a => { const k = a.category || 'Sonstige'; kats[k] = (kats[k]||0)+1; });
+  katEl.innerHTML = Object.entries(kats).map(([k,n]) => `
+    <div class="artikel-item">
+      <div class="artikel-dot dot-film"></div>
+      <div class="artikel-info">
+        <div class="artikel-titel">${k}</div>
+        <div class="artikel-meta">${n} Artikel</div>
+      </div>
+      <span class="badge badge-film">${n}</span>
+    </div>
+  `).join('') || '<div class="loading">Keine Daten</div>';
+}
+
+// ── ARTIKEL TABELLE ─────────────────────────────────────
+function renderArtikelTabelle() {
+  const filterKat = document.getElementById('filter-kat').value;
+  const filterPub = document.getElementById('filter-pub').value;
+
+  let liste = alleArtikel;
+  if (filterKat) liste = liste.filter(a => a.category === filterKat);
+  if (filterPub !== '') liste = liste.filter(a => String(a.published) === filterPub);
+
+  const tbody = document.getElementById('artikel-tbody');
+  if (liste.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" class="loading">Keine Artikel gefunden</td></tr>';
+    return;
+  }
+  tbody.innerHTML = liste.map(a => `
+    <tr>
+      <td>${a.id}</td>
+      <td><strong>${a.title || a.title_de || '–'}</strong></td>
+      <td><span class="badge badge-${katClass(a.category)}">${a.category || '–'}</span></td>
+      <td>${a.author || '–'}</td>
+      <td><span class="badge ${a.published ? 'badge-online' : 'badge-entwurf'}">${a.published ? 'Online' : 'Entwurf'}</span></td>
+      <td>${fmtDatum(a.created_at)}</td>
+      <td style="display:flex;gap:4px;flex-wrap:wrap">
+        <button class="btn-sm ${a.published ? '' : 'success'}" onclick="togglePublish(${a.id},${!a.published})">
+          ${a.published ? 'Offline' : 'Online'}
+        </button>
+        <button class="btn-sm danger" onclick="deleteArtikel(${a.id})">✕</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+async function togglePublish(id, pub) {
+  try {
+    await fetch(API + '/admin/articles/' + id, {
+      method: 'PUT',
+      headers: authH(),
+      body: JSON.stringify({published: pub})
+    });
+    await loadArtikel();
+    renderArtikelTabelle();
+    renderDashboard();
+  } catch(e) { alert('Fehler: ' + e.message); }
+}
+
+async function deleteArtikel(id) {
+  if (!confirm('Artikel wirklich löschen?')) return;
+  try {
+    await fetch(API + '/admin/articles/' + id, {method:'DELETE', headers: authH()});
+    await loadArtikel();
+    renderArtikelTabelle();
+    renderDashboard();
+  } catch(e) { alert('Fehler: ' + e.message); }
+}
+
+// ── NEUER ARTIKEL ───────────────────────────────────────
+async function createArtikel() {
+  const title_de = document.getElementById('neu-title-de').value.trim();
+  const content_de = document.getElementById('neu-content-de').value.trim();
+  if (!title_de) { alert('Bitte Titel auf Deutsch eingeben'); return; }
+  if (!content_de) { alert('Bitte Text auf Deutsch eingeben'); return; }
+
+  const statusEl = document.getElementById('form-status');
+  statusEl.textContent = 'Speichern…';
+
+  // Bild hochladen falls vorhanden
+  let image_url = '';
+  const fotoInput = document.getElementById('neu-foto');
+  if (fotoInput.files[0]) {
+    try {
+      const fd = new FormData();
+      fd.append('file', fotoInput.files[0]);
+      const up = await fetch(API + '/admin/upload', {
+        method: 'POST',
+        headers: {'Authorization': 'Bearer ' + token},
+        body: fd
+      });
+      const upData = await up.json();
+      image_url = upData.url || '';
+      statusEl.textContent = 'Bild hochgeladen…';
+    } catch(e) { statusEl.textContent = 'Bild-Upload fehlgeschlagen'; }
+  }
+
+  try {
+    const r = await fetch(API + '/admin/articles', {
+      method: 'POST',
+      headers: authH(),
+      body: JSON.stringify({
+        title_de:    title_de,
+        title_kmj:   document.getElementById('neu-title-kmj').value,
+        title_sor:   document.getElementById('neu-title-sor').value,
+        title_en:    document.getElementById('neu-title-en').value,
+        content_de:  content_de,
+        content_kmj: document.getElementById('neu-content-kmj').value,
+        content_sor: document.getElementById('neu-content-sor').value,
+        content_en:  document.getElementById('neu-content-en').value,
+        category:    document.getElementById('neu-category').value,
+        author:      document.getElementById('neu-author').value || 'Redaktion FAK',
+        published:   document.getElementById('neu-published').value === 'true',
+        image_url:   image_url,
+        video_url:   ''
+      })
+    });
+    if (!r.ok) { const e = await r.json(); throw new Error(e.detail); }
+    statusEl.textContent = '';
+    document.getElementById('success-msg').style.display = 'block';
+    setTimeout(() => document.getElementById('success-msg').style.display='none', 3000);
+    resetForm();
+    await loadArtikel();
+    renderDashboard();
+  } catch(e) {
+    statusEl.textContent = '❌ ' + e.message;
+  }
+}
+
+function resetForm() {
+  ['neu-title-de','neu-title-kmj','neu-title-sor','neu-title-en',
+   'neu-content-de','neu-content-kmj','neu-content-sor','neu-content-en',
+   'neu-author'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('neu-foto').value = '';
+  document.getElementById('form-status').textContent = '';
+  showLangDirect('de');
+}
+
+function showLangDirect(lang) {
+  document.querySelectorAll('.lang-tab').forEach((t,i) => t.classList.toggle('active', ['de','kmj','sor','en'][i]===lang));
+  document.querySelectorAll('.lang-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('lang-'+lang).classList.add('active');
+}
+
+// ── REDAKTIONSPLAN ──────────────────────────────────────
+function renderPlan() {
+  const tage = ['Mo 09.','Di 10.','Mi 11.','Do 12.','Fr 13.','Sa 14.','So 15.'];
+  const autoren = [...new Set(alleArtikel.map(a => a.author).filter(Boolean))].slice(0,5);
+  if (autoren.length === 0) autoren.push('Redaktion FAK');
+
+  const grid = document.getElementById('plan-grid');
+  let html = '<div class="plan-head"></div>';
+  tage.forEach(t => html += `<div class="plan-head">${t}</div>`);
+
+  autoren.forEach((autor, ai) => {
+    html += `<div class="plan-label">${autor.split(' ')[0]}</div>`;
+    for (let d = 0; d < 7; d++) {
+      const artikel = alleArtikel.filter(a => a.author === autor)[d % Math.max(1,alleArtikel.filter(a=>a.author===autor).length)];
+      if (artikel && d % 3 === ai % 3) {
+        const cls = katClass(artikel.category);
+        html += `<div class="plan-cell pc-${cls}">
+          <div class="pc-titel">${(artikel.title||artikel.title_de||'').substring(0,20)}${(artikel.title||artikel.title_de||'').length>20?'…':''}</div>
+          <div class="pc-autor">${artikel.category||''}</div>
+        </div>`;
+      } else {
+        html += `<div class="plan-cell leer"></div>`;
+      }
+    }
+  });
+  grid.innerHTML = html;
+}
+
+// ── TEAM ────────────────────────────────────────────────
+function renderTeam() {
+  const autoren = {};
+  alleArtikel.forEach(a => {
+    const n = a.author || 'Unbekannt';
+    if (!autoren[n]) autoren[n] = {online:0, entwurf:0};
+    if (a.published) autoren[n].online++;
+    else autoren[n].entwurf++;
+  });
+
+  const grid = document.getElementById('team-grid');
+  if (Object.keys(autoren).length === 0) {
+    grid.innerHTML = '<div class="loading" style="grid-column:1/-1">Keine Autoren-Daten vorhanden</div>';
+    return;
+  }
+
+  grid.innerHTML = Object.entries(autoren).map(([name, stats]) => {
+    const gesamt = stats.online + stats.entwurf;
+    const load   = Math.min(100, Math.round((gesamt / Math.max(1, alleArtikel.length)) * 100 * Object.keys(autoren).length));
+    const farbe  = load > 70 ? '#c0392b' : load > 40 ? '#e67e22' : '#27ae60';
+    return `
+      <div class="team-card">
+        <div class="team-name">${name}</div>
+        <div class="team-role">Autorin / Redakteurin</div>
+        <div class="team-stats">
+          <div class="team-stat">
+            <div class="team-stat-val">${stats.entwurf}</div>
+            <div class="team-stat-label">In Arbeit</div>
+          </div>
+          <div class="team-stat">
+            <div class="team-stat-val">${stats.online}</div>
+            <div class="team-stat-label">Veröffentlicht</div>
+          </div>
+        </div>
+        <div class="workload-bar-wrap">
+          <div class="workload-bar" style="width:${load}%;background:${farbe}"></div>
+        </div>
+        <div class="workload-label"><span>Auslastung</span><span>${load}%</span></div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ── HILFSFUNKTIONEN ─────────────────────────────────────
+function fmtDatum(d) {
+  if (!d) return '–';
+  return new Date(d).toLocaleDateString('de-DE', {day:'2-digit', month:'2-digit', year:'numeric'});
+}
+
+function katClass(kat) {
+  const m = {Film:'film', Philosophie:'phil', Fotografie:'foto', Magazin:'mag'};
+  return m[kat] || 'mag';
+}
+</script>
+</body>
+</html>
