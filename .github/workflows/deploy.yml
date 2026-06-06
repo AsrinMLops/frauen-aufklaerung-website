@@ -20,9 +20,15 @@ jobs:
           script: |
             cd ~/frauen-aufklaerung-website
             git pull origin main
-            docker cp redaktion.html frauen-website:/usr/share/nginx/html/redaktion.html
-            docker cp admin.html frauen-website:/usr/share/nginx/html/admin.html
-            docker cp index.html frauen-website:/usr/share/nginx/html/index.html
-            docker cp magazin.html frauen-website:/usr/share/nginx/html/magazin.html
+
+            docker cp index.html frauen-website:/usr/share/nginx/html/
+            docker cp admin.html frauen-website:/usr/share/nginx/html/
+            docker cp magazin.html frauen-website:/usr/share/nginx/html/
+            docker cp redaktion.html frauen-website:/usr/share/nginx/html/
             docker exec frauen-website nginx -s reload
+
+            docker stop translation-api || true
+            docker rm translation-api || true
+            docker run -d --name translation-api --restart always -p 8001:8000 -e GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }} aske84/translation-api:latest
+
             echo "Deploy erfolgreich: $(date)"
