@@ -25,6 +25,8 @@ jobs:
             docker cp admin.html frauen-website:/usr/share/nginx/html/
             docker cp magazin.html frauen-website:/usr/share/nginx/html/
             docker cp redaktion.html frauen-website:/usr/share/nginx/html/
+            docker cp arbeitsplan.html frauen-website:/usr/share/nginx/html/
+            docker cp docs/FAK_Redaktion_Arbeitsplan_Vorlage.docx frauen-website:/usr/share/nginx/html/arbeitsplan_vorlage.docx
             docker exec frauen-website nginx -s reload
 
             docker stop translation-api || true
