@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redaktions-Arbeitsplan – FAK Magazin</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#C9A84C;--dunkel:#1a1a2e;--grau:#f4f4f0;
+  --gruen:#27ae60;--gruen-bg:#eafaf1;
+  --rot:#c0392b;--rot-bg:#fdf2f2;
+  --blau:#2980b9;--blau-bg:#eaf4fb;
+  --orange:#e67e22;--orange-bg:#fef9e7;
+  --lila:#8e44ad;--lila-bg:#f5eef8;
+  --teal:#0f6e56;--teal-bg:#e1f5ee;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',sans-serif;background:var(--grau);color:#333;min-height:100vh}
+
+/* LOGIN */
+#login-page{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--dunkel)}
+.login-box{background:#fff;padding:48px;width:380px;border-top:4px solid var(--gold);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.login-title{text-align:center;font-size:1.1rem;font-weight:700;color:var(--dunkel);margin-bottom:6px}
+.login-sub{text-align:center;font-size:.72rem;color:#888;margin-bottom:32px;letter-spacing:1px;text-transform:uppercase}
+.fg{margin-bottom:18px}
+.fg label{display:block;font-size:.68rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:6px}
+.fg input{width:100%;padding:12px 14px;border:1px solid #ddd;font-family:'Montserrat',sans-serif;font-size:.88rem;outline:none;transition:border .2s}
+.fg input:focus{border-color:var(--gold)}
+.btn-login{width:100%;padding:13px;background:var(--dunkel);color:#fff;border:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer}
+.btn-login:hover{background:var(--gold)}
+.login-error{color:var(--rot);font-size:.78rem;text-align:center;margin-top:12px;display:none}
+
+/* APP */
+#app{display:none;flex-direction:column;min-height:100vh}
+.topbar{background:var(--dunkel);color:#fff;height:56px;display:flex;align-items:center;padding:0 24px;gap:16px;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--gold)}
+.topbar-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold)}
+.topbar-sub{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:#888}
+.topbar-spacer{flex:1}
+.topbar-actions{display:flex;gap:10px;align-items:center}
+.btn-small{padding:6px 14px;border:1px solid #444;color:#aaa;font-size:.65rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;background:transparent;font-family:'Montserrat',sans-serif;transition:all .2s}
+.btn-small:hover{border-color:var(--gold);color:var(--gold)}
+.btn-small.active{background:var(--gold);color:var(--dunkel);border-color:var(--gold)}
+.save-indicator{font-size:.65rem;color:#aaa;display:flex;align-items:center;gap:6px}
+.save-dot{width:8px;height:8px;border-radius:50%;background:#aaa}
+.save-dot.saved{background:var(--gruen)}
+.save-dot.saving{background:var(--orange);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+.nav-tabs{background:#fff;border-bottom:1px solid #e0e0e0;display:flex;padding:0 24px;overflow-x:auto;gap:0}
+.nav-tab{padding:14px 16px;font-size:.68rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;color:#888;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.nav-tab:hover{color:var(--dunkel)}
+.nav-tab.active{color:var(--dunkel);border-bottom-color:var(--gold)}
+
+.main{flex:1;padding:24px;max-width:1400px;margin:0 auto;width:100%}
+.panel{display:none}
+.panel.active{display:block}
+
+/* CARDS */
+.card{background:#fff;padding:24px;margin-bottom:20px;border-top:3px solid var(--gold)}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;border-bottom:2px solid var(--gold);padding-bottom:12px}
+.card-title{font-size:.82rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--dunkel)}
+.ok-msg{display:none;padding:10px 16px;background:var(--gruen-bg);border-left:4px solid var(--gruen);color:var(--gruen);font-size:.78rem;margin-bottom:14px}
+
+/* GRID */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+
+/* FIELDS */
+.field-label{display:block;font-size:.63rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:5px}
+.field{width:100%;padding:9px 11px;border:1px solid #ddd;font-family:'Montserrat',sans-serif;font-size:.82rem;outline:none;transition:border .2s;background:#fff}
+.field:focus{border-color:var(--gold)}
+textarea.field{resize:vertical;min-height:80px}
+select.field{cursor:pointer}
+.field-group{margin-bottom:14px}
+
+/* BUTTONS */
+.btn-primary{padding:10px 24px;background:var(--dunkel);color:#fff;border:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.btn-primary:hover{background:var(--gold)}
+.btn-secondary{padding:10px 24px;background:#fff;color:var(--dunkel);border:2px solid var(--dunkel);font-family:'Montserrat',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;margin-left:8px}
+.btn-sm{padding:4px 10px;font-size:.63rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:1px solid #ddd;background:#fff;font-family:'Montserrat',sans-serif;transition:all .15s}
+.btn-sm:hover{background:var(--dunkel);color:#fff;border-color:var(--dunkel)}
+.btn-sm.gold{background:var(--gold);color:#fff;border-color:var(--gold)}
+.btn-sm.danger:hover{background:var(--rot);border-color:var(--rot);color:#fff}
+
+/* QUARTAL INFO */
+.quartal-header{background:var(--dunkel);color:#fff;padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.quartal-badge{background:var(--gold);color:var(--dunkel);padding:4px 14px;font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.quartal-info{font-size:.78rem;color:#ccc}
+.quartal-info strong{color:#fff}
+
+/* TABELLEN */
+.plan-table{width:100%;border-collapse:collapse}
+.plan-table th{background:var(--dunkel);color:#fff;padding:10px 12px;text-align:left;font-size:.63rem;letter-spacing:2px;text-transform:uppercase;white-space:nowrap}
+.plan-table td{padding:8px 12px;border-bottom:1px solid #f0f0f0;font-size:.8rem;vertical-align:middle}
+.plan-table tr:hover td{background:#fafafa}
+.plan-table td input,.plan-table td select,.plan-table td textarea{width:100%;border:1px solid transparent;padding:4px 6px;font-family:'Montserrat',sans-serif;font-size:.78rem;background:transparent;outline:none}
+.plan-table td input:focus,.plan-table td select:focus,.plan-table td textarea:focus{border-color:var(--gold);background:#fff}
+
+/* STATUS BADGES */
+.status-badge{display:inline-block;padding:3px 10px;font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:2px}
+.s-geplant{background:var(--blau-bg);color:var(--blau)}
+.s-arbeit{background:var(--orange-bg);color:var(--orange)}
+.s-review{background:var(--lila-bg);color:var(--lila)}
+.s-online{background:var(--gruen-bg);color:var(--gruen)}
+.s-pausiert{background:var(--rot-bg);color:var(--rot)}
+
+/* ROLLE BADGES */
+.rolle-badge{display:inline-block;padding:3px 10px;font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.r-admin,.r-chefredaktion{background:var(--dunkel);color:#fff}
+.r-redakteurin{background:var(--blau-bg);color:var(--blau)}
+.r-autorin{background:var(--teal-bg);color:var(--teal)}
+.r-gastautorin{background:var(--lila-bg);color:var(--lila)}
+
+/* WOCHEN */
+.wochen-grid{display:grid;grid-template-columns:160px repeat(4,1fr);gap:3px;margin-bottom:12px}
+.woche-head{background:var(--dunkel);color:#fff;padding:8px 10px;font-size:.63rem;letter-spacing:1px;text-transform:uppercase;text-align:center}
+.woche-name{background:var(--dunkel);color:var(--gold);padding:8px 10px;font-size:.72rem;font-weight:600;display:flex;align-items:center}
+.woche-cell{background:#fff;padding:8px;border:1px solid #e8e8e8}
+.woche-cell textarea{width:100%;border:none;font-family:'Montserrat',sans-serif;font-size:.72rem;color:#333;resize:none;outline:none;min-height:70px;background:transparent}
+.woche-cell textarea:focus{background:#fffef0}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:#fff;padding:16px;border-top:3px solid var(--gold);text-align:center}
+.stat-val{font-size:1.8rem;font-weight:700;color:var(--dunkel)}
+.stat-label{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:#888;margin-top:4px}
+
+/* DOWNLOAD BANNER */
+.download-banner{background:var(--dunkel);color:#fff;padding:16px 24px;display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.download-banner-text{flex:1;font-size:.78rem}
+.download-banner-text strong{color:var(--gold)}
+
+/* FORTSCHRITT */
+.progress-wrap{height:6px;background:#e0e0e0;margin-top:8px}
+.progress-bar{height:6px;background:var(--gold);transition:width .4s}
+.progress-label{font-size:.65rem;color:#888;margin-top:3px;display:flex;justify-content:space-between}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;width:90%;max-width:500px;padding:28px}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;border-bottom:2px solid var(--gold);padding-bottom:10px}
+.modal-title{font-size:.82rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--dunkel)}
+.modal-close{cursor:pointer;background:none;border:none;font-size:1.2rem;color:#888;padding:4px 8px}
+.loading{text-align:center;padding:32px;color:#aaa;font-size:.78rem;letter-spacing:1px;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-page">
+  <div class="login-box">
+    <div class="login-title">Arbeitsplan</div>
+    <div class="login-sub">FAK Magazin Redaktion</div>
+    <div class="fg"><label>Benutzername</label><input type="text" id="lu" placeholder="admin" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <div class="fg"><label>Passwort</label><input type="password" id="lp" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <button class="btn-login" onclick="doLogin()">Einloggen</button>
+    <div class="login-error" id="lerr">Falscher Benutzername oder Passwort</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <span class="topbar-logo">FAK</span>
+    <span class="topbar-sub">Arbeitsplan</span>
+    <div class="topbar-spacer"></div>
+    <div class="save-indicator">
+      <div class="save-dot" id="save-dot"></div>
+      <span id="save-text">Alle Änderungen gespeichert</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn-small" onclick="autoSave()">💾 Speichern</button>
+      <button class="btn-small" onclick="doLogout()">Abmelden</button>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="showPanel('uebersicht')">📊 Übersicht</div>
+    <div class="nav-tab" onclick="showPanel('quartal')">📅 Quartal-Plan</div>
+    <div class="nav-tab" onclick="showPanel('monat1')">📆 Monat 1</div>
+    <div class="nav-tab" onclick="showPanel('monat2')">📆 Monat 2</div>
+    <div class="nav-tab" onclick="showPanel('monat3')">📆 Monat 3</div>
+    <div class="nav-tab" onclick="showPanel('deadlines')">⏰ Deadlines</div>
+    <div class="nav-tab" onclick="showPanel('sitzungen')">👥 Sitzungen</div>
+    <div class="nav-tab" onclick="showPanel('auswertung')">✅ Auswertung</div>
+  </div>
+
+  <div class="main">
+
+    <!-- ═══ ÜBERSICHT ═══ -->
+    <div class="panel active" id="panel-uebersicht">
+
+      <div class="download-banner">
+        <span style="font-size:1.5rem">📄</span>
+        <div class="download-banner-text">
+          <strong>Word-Vorlage verfügbar:</strong> Lade die druckfertige Word-Datei herunter für Meetings und Ausdrucke.
+        </div>
+        <a href="/arbeitsplan_vorlage.docx" download class="btn-small active">⬇ Word herunterladen</a>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Quartal-Einstellungen</div>
+        </div>
+        <div class="ok-msg" id="ok-quartal">✅ Gespeichert!</div>
+        <div class="grid-3">
+          <div class="field-group">
+            <label class="field-label">Quartal *</label>
+            <select id="q-quartal" class="field" onchange="autoSave()">
+              <option value="">– wählen –</option>
+              <option>Q1 2026</option><option>Q2 2026</option>
+              <option>Q3 2026</option><option>Q4 2026</option>
+              <option>Q1 2027</option><option>Q2 2027</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Zeitraum</label>
+            <input type="text" id="q-zeitraum" class="field" placeholder="z.B. Juli – September 2026" onchange="autoSave()">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Magazin-Ausgabe</label>
+            <input type="text" id="q-ausgabe" class="field" placeholder="z.B. FAK Magazin Q3 2026" onchange="autoSave()">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Schwerpunkt-Thema</label>
+            <input type="text" id="q-thema" class="field" placeholder="z.B. Kurdische Frauen im Film" onchange="autoSave()">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Erscheinungsdatum</label>
+            <input type="date" id="q-datum" class="field" onchange="autoSave()">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Erstellt von</label>
+            <input type="text" id="q-erstellt" class="field" placeholder="Name der Chefredaktion" onchange="autoSave()">
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Quartal-Ziele (je eine Zeile)</label>
+          <textarea id="q-ziele" class="field" rows="3" placeholder="1. Ziel des Quartals&#10;2. Zweites Ziel&#10;3. Drittes Ziel" onchange="autoSave()"></textarea>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-row" id="stats-row">
+        <div class="stat-card"><div class="stat-val" id="st-gesamt">0</div><div class="stat-label">Beiträge geplant</div></div>
+        <div class="stat-card"><div class="stat-val" id="st-online" style="color:var(--gruen)">0</div><div class="stat-label">Online</div></div>
+        <div class="stat-card"><div class="stat-val" id="st-arbeit" style="color:var(--orange)">0</div><div class="stat-label">In Arbeit</div></div>
+        <div class="stat-card"><div class="stat-val" id="st-review" style="color:var(--lila)">0</div><div class="stat-label">In Review</div></div>
+        <div class="stat-card"><div class="stat-val" id="st-geplant" style="color:var(--blau)">0</div><div class="stat-label">Geplant</div></div>
+      </div>
+
+      <!-- TEAM -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Team dieses Quartals</div>
+          <button class="btn-sm gold" onclick="openModal('team-modal')">+ Mitglied hinzufügen</button>
+        </div>
+        <div id="team-liste"><div class="loading">Laden…</div></div>
+      </div>
+    </div>
+
+    <!-- ═══ QUARTAL-PLAN ═══ -->
+    <div class="panel" id="panel-quartal">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Quartal-Beitragsplanung</div>
+          <button class="btn-sm gold" onclick="addBeitrag()">+ Beitrag hinzufügen</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="plan-table" id="quartal-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Arbeitstitel</th>
+                <th>Rubrik</th>
+                <th>Autorin</th>
+                <th>Monat</th>
+                <th>Deadline</th>
+                <th>Status</th>
+                <th>Notiz</th>
+                <th>Aktion</th>
+              </tr>
+            </thead>
+            <tbody id="quartal-tbody">
+              <tr><td colspan="9" class="loading">Noch keine Beiträge geplant</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ MONATSPLÄNE ═══ -->
+    <div class="panel" id="panel-monat1"><div id="monat1-content"></div></div>
+    <div class="panel" id="panel-monat2"><div id="monat2-content"></div></div>
+    <div class="panel" id="panel-monat3"><div id="monat3-content"></div></div>
+
+    <!-- ═══ DEADLINES ═══ -->
+    <div class="panel" id="panel-deadlines">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Deadline-Kalender</div>
+          <button class="btn-sm gold" onclick="addDeadline()">+ Deadline hinzufügen</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="plan-table" id="deadline-table">
+            <thead>
+              <tr><th>#</th><th>Datum</th><th>Aufgabe / Beitrag</th><th>Zuständig</th><th>Rubrik</th><th>Priorität</th><th>Erledigt</th><th>Aktion</th></tr>
+            </thead>
+            <tbody id="deadline-tbody">
+              <tr><td colspan="8" class="loading">Noch keine Deadlines eingetragen</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SITZUNGEN ═══ -->
+    <div class="panel" id="panel-sitzungen">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Redaktionssitzungen</div>
+          <button class="btn-sm gold" onclick="addSitzung()">+ Sitzung eintragen</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="plan-table" id="sitzung-table">
+            <thead>
+              <tr><th>KW</th><th>Datum</th><th>Uhrzeit</th><th>Tagesordnung</th><th>Moderation</th><th>Protokoll</th><th>Erledigt</th><th>Aktion</th></tr>
+            </thead>
+            <tbody id="sitzung-tbody">
+              <tr><td colspan="8" class="loading">Noch keine Sitzungen geplant</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ AUSWERTUNG ═══ -->
+    <div class="panel" id="panel-auswertung">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Quartal-Auswertung</div></div>
+        <div class="grid-2" style="margin-bottom:20px">
+          <div style="background:var(--gruen-bg);padding:20px;border-left:4px solid var(--gruen)">
+            <div style="font-size:.75rem;font-weight:700;color:var(--gruen);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px">✅ Was hat gut funktioniert?</div>
+            <textarea id="aw-gut" class="field" rows="5" placeholder="Positive Erfahrungen..." onchange="autoSave()"></textarea>
+          </div>
+          <div style="background:var(--rot-bg);padding:20px;border-left:4px solid var(--rot)">
+            <div style="font-size:.75rem;font-weight:700;color:var(--rot);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px">🔧 Was verbessern wir?</div>
+            <textarea id="aw-besser" class="field" rows="5" placeholder="Verbesserungspotenzial..." onchange="autoSave()"></textarea>
+          </div>
+        </div>
+        <div class="card-header"><div class="card-title">Kennzahlen</div></div>
+        <div id="kpi-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TEAM MODAL -->
+<div class="modal-overlay" id="team-modal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Teammitglied hinzufügen</div><button class="modal-close" onclick="closeModal('team-modal')">✕</button></div>
+    <div class="field-group"><label class="field-label">Name *</label><input type="text" id="tm-name" class="field" placeholder="Vollständiger Name"></div>
+    <div class="field-group"><label class="field-label">Rolle *</label>
+      <select id="tm-rolle" class="field">
+        <option value="chefredaktion">✍️ Chefredaktion</option>
+        <option value="redakteurin">📝 Redakteurin</option>
+        <option value="autorin">🖊️ Autorin</option>
+        <option value="gastautorin">💫 Gastbeiträgerin</option>
+      </select>
+    </div>
+    <div class="field-group"><label class="field-label">E-Mail / Kontakt</label><input type="text" id="tm-kontakt" class="field" placeholder="email@beispiel.de"></div>
+    <div class="field-group"><label class="field-label">Zuständigkeit</label><input type="text" id="tm-zustaendigkeit" class="field" placeholder="z.B. Film-Rubriken"></div>
+    <button class="btn-primary" onclick="saveMitglied()">Hinzufügen</button>
+    <button class="btn-secondary" onclick="closeModal('team-modal')">Abbrechen</button>
+  </div>
+</div>
+
+<script>
+const API = '/api';
+let token = '';
+// Lokaler Zustand — wird in DB gespeichert
+let STATE = {
+  quartal: { quartal:'', zeitraum:'', ausgabe:'', thema:'', datum:'', erstellt:'', ziele:'' },
+  team: [],
+  beitraege: [],
+  deadlines: [],
+  sitzungen: [],
+  monate: [
+    { name:'Monat 1', wochen: [['','','',''],['','','',''],['','','',''],['','','','']], notizen:'', ziele:'', termine:'' },
+    { name:'Monat 2', wochen: [['','','',''],['','','',''],['','','',''],['','','','']], notizen:'', ziele:'', termine:'' },
+    { name:'Monat 3', wochen: [['','','',''],['','','',''],['','','',''],['','','','']], notizen:'', ziele:'', termine:'' },
+  ],
+  auswertung: { gut:'', besser:'' },
+};
+let saveTimer = null;
+
+const TEAM_NAMEN = ['CR','R1','R2','A1','A2','G'];
+const RUBRIKEN_LIST = ['Artikel','Interview','Übersetzung','Filmvorstellung','Redaktion'];
+const STATUS_LIST = ['geplant','in Arbeit','review','online','pausiert'];
+const PRIORITAET_LIST = ['hoch','mittel','niedrig'];
+const WOCHEN_LABELS = ['Woche 1 (1.–7.)','Woche 2 (8.–14.)','Woche 3 (15.–21.)','Woche 4 (22.–31.)'];
+
+// ── AUTH ──────────────────────────────────────────────────
+async function doLogin() {
+  const u = document.getElementById('lu').value.trim();
+  const p = document.getElementById('lp').value;
+  const e = document.getElementById('lerr');
+  e.style.display = 'none';
+  try {
+    const r = await fetch(API+'/login',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({username:u,password:p})});
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.detail||'Fehler');
+    token = d.token;
+    document.getElementById('login-page').style.display='none';
+    document.getElementById('app').style.display='flex';
+    await loadState();
+  } catch(ex) { e.textContent=ex.message; e.style.display='block'; }
+}
+function doLogout() {
+  token='';
+  document.getElementById('login-page').style.display='flex';
+  document.getElementById('app').style.display='none';
+  document.getElementById('lp').value='';
+}
+function ah() { return {'Content-Type':'application/json','Authorization':'Bearer '+token}; }
+
+// ── NAVIGATION ────────────────────────────────────────────
+function showPanel(name) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  const idx = {uebersicht:0,quartal:1,monat1:2,monat2:3,monat3:4,deadlines:5,sitzungen:6,auswertung:7};
+  if (idx[name]!==undefined) document.querySelectorAll('.nav-tab')[idx[name]].classList.add('active');
+  if (name.startsWith('monat')) renderMonat(parseInt(name.replace('monat',''))-1);
+}
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// ── STATE LADEN (aus localStorage mit API-Fallback) ────────
+async function loadState() {
+  // Versuche aus localStorage laden
+  const local = localStorage.getItem('fak_arbeitsplan_v2');
+  if (local) {
+    try { STATE = {...STATE, ...JSON.parse(local)}; } catch(e) {}
+  }
+  // Dann in die Felder schreiben
+  fillFields();
+  renderTeam();
+  renderBeitraege();
+  renderDeadlines();
+  renderSitzungen();
+  renderStats();
+  renderKPIs();
+  renderMonat(0);
+  setSaved();
+}
+
+function fillFields() {
+  const q = STATE.quartal;
+  ['quartal','zeitraum','ausgabe','thema','datum','erstellt','ziele'].forEach(k=>{
+    const el = document.getElementById('q-'+k);
+    if (el) el.value = q[k]||'';
+  });
+  const aw = STATE.auswertung;
+  document.getElementById('aw-gut').value   = aw.gut||'';
+  document.getElementById('aw-besser').value = aw.besser||'';
+}
+
+// ── AUTO-SAVE ─────────────────────────────────────────────
+function autoSave() {
+  setSaving();
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(doSave, 800);
+}
+
+function doSave() {
+  // Quartal-Felder lesen
+  ['quartal','zeitraum','ausgabe','thema','datum','erstellt','ziele'].forEach(k=>{
+    const el = document.getElementById('q-'+k);
+    if (el) STATE.quartal[k] = el.value;
+  });
+  STATE.auswertung.gut    = document.getElementById('aw-gut')?.value||'';
+  STATE.auswertung.besser = document.getElementById('aw-besser')?.value||'';
+  // Monatsdaten lesen
+  for(let mi=0;mi<3;mi++) {
+    ['name','notizen','ziele','termine'].forEach(k=>{
+      const el = document.getElementById(`m${mi}-${k}`);
+      if (el) STATE.monate[mi][k] = el.value;
+    });
+    for(let ri=0;ri<4;ri++) {
+      WOCHEN_LABELS.forEach((_,wi)=>{
+        const el = document.getElementById(`m${mi}-r${ri}-w${wi}`);
+        if (el) STATE.monate[mi].wochen[ri][wi] = el.value;
+      });
+    }
+  }
+  localStorage.setItem('fak_arbeitsplan_v2', JSON.stringify(STATE));
+  renderStats();
+  setSaved();
+}
+
+function setSaving() {
+  document.getElementById('save-dot').className='save-dot saving';
+  document.getElementById('save-text').textContent='Speichern…';
+}
+function setSaved() {
+  document.getElementById('save-dot').className='save-dot saved';
+  document.getElementById('save-text').textContent='Gespeichert ✓';
+}
+
+// ── TEAM ──────────────────────────────────────────────────
+const ROLLE_LABELS = {chefredaktion:'✍️ Chefredaktion',redakteurin:'📝 Redakteurin',autorin:'🖊️ Autorin',gastautorin:'💫 Gastbeiträgerin'};
+
+function renderTeam() {
+  const el = document.getElementById('team-liste');
+  if (!STATE.team.length) {
+    el.innerHTML='<div style="color:#aaa;font-size:.8rem;padding:12px">Noch keine Mitglieder eingetragen. Klicke "+ Mitglied hinzufügen".</div>';
+    return;
+  }
+  el.innerHTML=`<div style="overflow-x:auto"><table class="plan-table">
+    <thead><tr><th>#</th><th>Name</th><th>Rolle</th><th>Kontakt</th><th>Zuständigkeit</th><th>Aktion</th></tr></thead>
+    <tbody>${STATE.team.map((m,i)=>`
+      <tr>
+        <td style="font-weight:600;color:#888">${i+1}</td>
+        <td><strong>${m.name}</strong></td>
+        <td><span class="rolle-badge r-${m.rolle}">${ROLLE_LABELS[m.rolle]||m.rolle}</span></td>
+        <td>${m.kontakt||'–'}</td>
+        <td>${m.zustaendigkeit||'–'}</td>
+        <td><button class="btn-sm danger" onclick="removeMitglied(${i})">✕</button></td>
+      </tr>`).join('')}
+    </tbody></table></div>`;
+}
+
+function saveMitglied() {
+  const name = document.getElementById('tm-name').value.trim();
+  if (!name) { alert('Bitte Name eingeben'); return; }
+  STATE.team.push({
+    name, rolle: document.getElementById('tm-rolle').value,
+    kontakt: document.getElementById('tm-kontakt').value,
+    zustaendigkeit: document.getElementById('tm-zustaendigkeit').value,
+  });
+  closeModal('team-modal');
+  ['tm-name','tm-kontakt','tm-zustaendigkeit'].forEach(id=>document.getElementById(id).value='');
+  renderTeam(); autoSave();
+}
+function removeMitglied(i) {
+  if(!confirm('Mitglied entfernen?')) return;
+  STATE.team.splice(i,1); renderTeam(); autoSave();
+}
+
+// ── BEITRÄGE ──────────────────────────────────────────────
+function addBeitrag() {
+  STATE.beitraege.push({titel:'',rubrik:'Artikel',autorin:'',monat:'Monat 1',deadline:'',status:'geplant',notiz:''});
+  renderBeitraege(); autoSave();
+}
+
+function renderBeitraege() {
+  const tbody = document.getElementById('quartal-tbody');
+  if (!STATE.beitraege.length) {
+    tbody.innerHTML='<tr><td colspan="9" class="loading">Noch keine Beiträge geplant</td></tr>'; return;
+  }
+  tbody.innerHTML = STATE.beitraege.map((b,i)=>`
+    <tr>
+      <td style="font-weight:600;color:#888;white-space:nowrap">${i+1}</td>
+      <td><input class="field" style="min-width:160px" value="${esc(b.titel)}" oninput="STATE.beitraege[${i}].titel=this.value;autoSave()" placeholder="Arbeitstitel…"></td>
+      <td><select class="field" onchange="STATE.beitraege[${i}].rubrik=this.value;autoSave()">
+        ${RUBRIKEN_LIST.map(r=>`<option ${b.rubrik===r?'selected':''}>${r}</option>`).join('')}
+      </select></td>
+      <td><input class="field" style="min-width:80px" value="${esc(b.autorin)}" oninput="STATE.beitraege[${i}].autorin=this.value;autoSave()" placeholder="Kürzel"></td>
+      <td><select class="field" onchange="STATE.beitraege[${i}].monat=this.value;autoSave()">
+        ${['Monat 1','Monat 2','Monat 3'].map(m=>`<option ${b.monat===m?'selected':''}>${m}</option>`).join('')}
+      </select></td>
+      <td><input type="date" class="field" value="${b.deadline||''}" onchange="STATE.beitraege[${i}].deadline=this.value;autoSave()"></td>
+      <td><select class="field" onchange="STATE.beitraege[${i}].status=this.value;renderBeitraege();autoSave()">
+        ${STATUS_LIST.map(s=>`<option value="${s}" ${b.status===s?'selected':''}>${statusLabel(s)}</option>`).join('')}
+      </select></td>
+      <td><input class="field" style="min-width:120px" value="${esc(b.notiz)}" oninput="STATE.beitraege[${i}].notiz=this.value;autoSave()" placeholder="Notiz…"></td>
+      <td><button class="btn-sm danger" onclick="removeBeitrag(${i})">✕</button></td>
+    </tr>`).join('');
+}
+function removeBeitrag(i){if(!confirm('Löschen?'))return;STATE.beitraege.splice(i,1);renderBeitraege();autoSave();}
+
+// ── DEADLINES ─────────────────────────────────────────────
+function addDeadline() {
+  STATE.deadlines.push({datum:'',aufgabe:'',zustaendig:'',rubrik:'Artikel',prioritaet:'mittel',erledigt:false});
+  renderDeadlines(); autoSave();
+}
+function renderDeadlines() {
+  const tbody = document.getElementById('deadline-tbody');
+  if (!STATE.deadlines.length) {
+    tbody.innerHTML='<tr><td colspan="8" class="loading">Noch keine Deadlines</td></tr>'; return;
+  }
+  tbody.innerHTML = STATE.deadlines.map((d,i)=>`
+    <tr style="${d.erledigt?'opacity:.5;text-decoration:line-through':''}">
+      <td style="font-weight:600;color:#888">${i+1}</td>
+      <td><input type="date" class="field" value="${d.datum||''}" onchange="STATE.deadlines[${i}].datum=this.value;autoSave()"></td>
+      <td><input class="field" style="min-width:180px" value="${esc(d.aufgabe)}" oninput="STATE.deadlines[${i}].aufgabe=this.value;autoSave()" placeholder="Aufgabe…"></td>
+      <td><input class="field" style="min-width:80px" value="${esc(d.zustaendig)}" oninput="STATE.deadlines[${i}].zustaendig=this.value;autoSave()" placeholder="Kürzel"></td>
+      <td><select class="field" onchange="STATE.deadlines[${i}].rubrik=this.value;autoSave()">
+        ${RUBRIKEN_LIST.map(r=>`<option ${d.rubrik===r?'selected':''}>${r}</option>`).join('')}
+      </select></td>
+      <td><select class="field" onchange="STATE.deadlines[${i}].prioritaet=this.value;autoSave()">
+        ${PRIORITAET_LIST.map(p=>`<option ${d.prioritaet===p?'selected':''}>${p}</option>`).join('')}
+      </select></td>
+      <td style="text-align:center"><input type="checkbox" ${d.erledigt?'checked':''} onchange="STATE.deadlines[${i}].erledigt=this.checked;renderDeadlines();autoSave()" style="width:18px;height:18px;cursor:pointer"></td>
+      <td><button class="btn-sm danger" onclick="removeDeadline(${i})">✕</button></td>
+    </tr>`).join('');
+}
+function removeDeadline(i){if(!confirm('Löschen?'))return;STATE.deadlines.splice(i,1);renderDeadlines();autoSave();}
+
+// ── SITZUNGEN ─────────────────────────────────────────────
+function addSitzung() {
+  const kw = STATE.sitzungen.length+1;
+  STATE.sitzungen.push({kw,datum:'',uhrzeit:'10:00',tagesordnung:'1. Artikel-Stand  2.  3.',moderation:'',protokoll:'',erledigt:false});
+  renderSitzungen(); autoSave();
+}
+function renderSitzungen() {
+  const tbody = document.getElementById('sitzung-tbody');
+  if (!STATE.sitzungen.length) {
+    tbody.innerHTML='<tr><td colspan="8" class="loading">Noch keine Sitzungen geplant</td></tr>'; return;
+  }
+  tbody.innerHTML = STATE.sitzungen.map((s,i)=>`
+    <tr>
+      <td style="font-weight:700;color:var(--dunkel);text-align:center">KW <input class="field" style="width:40px;text-align:center" value="${s.kw}" oninput="STATE.sitzungen[${i}].kw=this.value;autoSave()"></td>
+      <td><input type="date" class="field" value="${s.datum||''}" onchange="STATE.sitzungen[${i}].datum=this.value;autoSave()"></td>
+      <td><input type="time" class="field" value="${s.uhrzeit||''}" onchange="STATE.sitzungen[${i}].uhrzeit=this.value;autoSave()"></td>
+      <td><input class="field" style="min-width:200px" value="${esc(s.tagesordnung)}" oninput="STATE.sitzungen[${i}].tagesordnung=this.value;autoSave()" placeholder="Tagesordnungspunkte…"></td>
+      <td><input class="field" value="${esc(s.moderation)}" oninput="STATE.sitzungen[${i}].moderation=this.value;autoSave()" placeholder="Name…"></td>
+      <td><textarea class="field" rows="1" style="min-width:120px" oninput="STATE.sitzungen[${i}].protokoll=this.value;autoSave()" placeholder="Notizen…">${esc(s.protokoll)}</textarea></td>
+      <td style="text-align:center"><input type="checkbox" ${s.erledigt?'checked':''} onchange="STATE.sitzungen[${i}].erledigt=this.checked;autoSave()" style="width:18px;height:18px;cursor:pointer"></td>
+      <td><button class="btn-sm danger" onclick="removeSitzung(${i})">✕</button></td>
+    </tr>`).join('');
+}
+function removeSitzung(i){if(!confirm('Löschen?'))return;STATE.sitzungen.splice(i,1);renderSitzungen();autoSave();}
+
+// ── MONATSPLÄNE ───────────────────────────────────────────
+function renderMonat(mi) {
+  const m = STATE.monate[mi];
+  const ROLLEN_NAMEN = STATE.team.length ?
+    STATE.team.map(t=>t.name) :
+    ['Chefredaktion','Redakteurin 1','Redakteurin 2','Autorin 1'];
+
+  const content = document.getElementById(`monat${mi+1}-content`);
+  content.innerHTML = `
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Monatsplan — <input id="m${mi}-name" class="field" style="display:inline;width:200px;font-size:.82rem;font-weight:700" value="${esc(m.name||'Monat '+(mi+1))}" onchange="autoSave()"></div>
+      </div>
+      <div class="grid-3" style="margin-bottom:16px">
+        <div class="field-group">
+          <label class="field-label">Monat & Jahr</label>
+          <input id="m${mi}-notizen" class="field" value="${esc(m.notizen||'')}" placeholder="z.B. Juli 2026" onchange="autoSave()">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Schwerpunkt-Thema</label>
+          <input id="m${mi}-ziele" class="field" value="${esc(m.ziele||'')}" placeholder="Thema des Monats" onchange="autoSave()">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Erscheinungsdatum</label>
+          <input id="m${mi}-termine" class="field" value="${esc(m.termine||'')}" placeholder="z.B. 30.07.2026" onchange="autoSave()">
+        </div>
+      </div>
+
+      <div class="wochen-grid">
+        <div class="woche-head">Team-Mitglied</div>
+        ${WOCHEN_LABELS.map(w=>`<div class="woche-head">${w}</div>`).join('')}
+        ${ROLLEN_NAMEN.map((name,ri)=>`
+          <div class="woche-name">${name}</div>
+          ${WOCHEN_LABELS.map((_,wi)=>`
+            <div class="woche-cell">
+              <textarea id="m${mi}-r${ri}-w${wi}"
+                placeholder="Aufgabe / Beitrag…"
+                onchange="autoSave()">${esc((m.wochen[ri]||[])[wi]||'')}</textarea>
+            </div>`).join('')}
+        `).join('')}
+      </div>
+    </div>`;
+}
+
+// ── STATS ─────────────────────────────────────────────────
+function renderStats() {
+  const b = STATE.beitraege;
+  document.getElementById('st-gesamt').textContent = b.length;
+  document.getElementById('st-online').textContent  = b.filter(x=>x.status==='online').length;
+  document.getElementById('st-arbeit').textContent  = b.filter(x=>x.status==='in Arbeit').length;
+  document.getElementById('st-review').textContent  = b.filter(x=>x.status==='review').length;
+  document.getElementById('st-geplant').textContent = b.filter(x=>x.status==='geplant').length;
+}
+
+function renderKPIs() {
+  const b = STATE.beitraege;
+  const d = STATE.deadlines;
+  const s = STATE.sitzungen;
+  const kpis = [
+    {label:'Beiträge geplant',    ziel:15, ist:b.length},
+    {label:'Online veröffentlicht',ziel:15, ist:b.filter(x=>x.status==='online').length},
+    {label:'Interviews',           ziel:3,  ist:b.filter(x=>x.rubrik==='Interview').length},
+    {label:'Übersetzungen',        ziel:3,  ist:b.filter(x=>x.rubrik==='Übersetzung').length},
+    {label:'Filmvorstellungen',    ziel:3,  ist:b.filter(x=>x.rubrik==='Filmvorstellung').length},
+    {label:'Deadlines erledigt',   ziel:d.length, ist:d.filter(x=>x.erledigt).length},
+    {label:'Sitzungen abgehalten', ziel:s.length, ist:s.filter(x=>x.erledigt).length},
+    {label:'Team-Mitglieder',      ziel:6,  ist:STATE.team.length},
+    {label:'Pünktlichkeitsrate',   ziel:100, ist:b.length?Math.round((b.filter(x=>x.status==='online').length/b.length)*100):0, einheit:'%'},
+  ];
+  document.getElementById('kpi-grid').innerHTML = kpis.map(k=>{
+    const pct = k.ziel>0 ? Math.min(100,Math.round((k.ist/k.ziel)*100)) : 0;
+    const color = pct>=80?'var(--gruen)':pct>=50?'var(--orange)':'var(--rot)';
+    return `<div style="background:#fff;padding:16px;border-top:3px solid ${color}">
+      <div style="font-size:.63rem;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">${k.label}</div>
+      <div style="display:flex;align-items:baseline;gap:8px">
+        <span style="font-size:1.6rem;font-weight:700;color:var(--dunkel)">${k.ist}${k.einheit||''}</span>
+        <span style="font-size:.75rem;color:#aaa">/ ${k.ziel}${k.einheit||''}</span>
+      </div>
+      <div class="progress-wrap"><div class="progress-bar" style="width:${pct}%;background:${color}"></div></div>
+      <div class="progress-label"><span>${pct}%</span><span>Ziel: ${k.ziel}</span></div>
+    </div>`;
+  }).join('');
+}
+
+// ── HILFSFUNKTIONEN ───────────────────────────────────────
+function statusLabel(s) {
+  return {'geplant':'🔵 Geplant','in Arbeit':'✏️ In Arbeit','review':'🔍 Review','online':'✅ Online','pausiert':'⏸️ Pausiert'}[s]||s;
+}
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>
